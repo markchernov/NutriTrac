@@ -37,13 +37,14 @@ DROP TABLE IF EXISTS `nutrient` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `nutrient` (
-  `nutrient_id` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nutrient_id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
   `group` VARCHAR(45) NULL,
   `unit_` VARCHAR(45) NULL,
   `value` VARCHAR(45) NULL,
   `ndbno` INT NULL,
-  PRIMARY KEY (`nutrient_id`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `FK_nutrient_food`
     FOREIGN KEY (`ndbno`)
     REFERENCES `food` (`ndbno`)
@@ -78,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `measures` (
     ON UPDATE NO ACTION,
   CONSTRAINT `FK_measures_nutrientId`
     FOREIGN KEY (`nutrient_id`)
-    REFERENCES `nutrient` (`nutrient_id`)
+    REFERENCES `nutrient` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
