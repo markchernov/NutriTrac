@@ -45,7 +45,7 @@ var xhrMethod = function (method, callback, url, apiKey, obj) {
         }
     }
     if(obj) {
-        xhr.send(obj);
+        xhr.send(JSON.stringify(obj));
     }
     xhr.send();
 }
@@ -65,7 +65,7 @@ var displayResponse = function (foodObj) {
     }
     var newFood = new food(foodObj.report.food.name, foodObj.report.food.ndbno, nutrients);
     console.log(newFood);
-    xhrMethod('POST', displayPing, 'http://52.89.185.185:8080/NutriTrac/rest/foodObj', false, newFood);
+    xhrMethod('POST', displayPing, 'http://localhost:8080/NutriTrac/rest/foodObj', false, newFood);
 };
 
 function food(name, ndbno, nutrients) {
@@ -92,7 +92,8 @@ function measure(eqv, label, qty, value) {
 
 var ping = function (event) {
     event.preventDefault();
-    xhrMethod('GET', displayPing, 'http://52.89.185.185:8080/NutriTrac/rest/ping');
+//    xhrMethod('GET', displayPing, 'http://52.89.185.185:8080/NutriTrac/rest/ping');
+    xhrMethod('GET', displayPing, 'http://localhost:8080/NutriTrac/rest/ping');
 
 }
 

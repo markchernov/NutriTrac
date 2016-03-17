@@ -38,12 +38,12 @@ public class NutriController {
 		@ResponseBody
 		@RequestMapping(path="foodObj", method = RequestMethod.POST)
 		public boolean addNewFoodObj(@RequestBody Food foodJson) {
-			for (Nutrient nut : foodJson.getNutrients()) {
-				nut.setFood(foodJson);
-				for(Measure meas : nut.getMeasures()) {
-					meas.setFood(foodJson);
-				}
-			}
+//			for (Nutrient nut : foodJson.getNutrients()) {
+//				nut.setFood(foodJson);
+//				for(Measure meas : nut.getMeasures()) {
+//					meas.setFood(foodJson);
+//				}
+//			}
 			
 			System.out.println("Food Number : " + foodJson.getNdbno() +
 							"\n Food Name : " + foodJson.getName() +
