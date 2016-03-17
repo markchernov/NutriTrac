@@ -1,2 +1,8 @@
-/bin/
+/build/
 /target/
+.DS_Store
+node_modules
+credentials.js
+.settings
+.classpath
+.project
