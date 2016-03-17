@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @RestController
-@SessionAttributes("loginCred")
+//@SessionAttributes("loginCred")
 public class NutriController {
 
 
 //		@Autowired
 //		private Left2SpendDAO leftDAO;
 		
-		@ModelAttribute("loginCred")
+		//@ModelAttribute("loginCred")
 		public Object setPersonLoggedIn() {
 			Object logIn = new Object();
 			//LogInItems logIn = new LogInItems();
