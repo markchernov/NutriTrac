@@ -1,7 +1,6 @@
 package data;
 
-import java.util.List;
-
+import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,11 +39,11 @@ public class NutriTracRESTDAO {
 
 	}
 	
-	public List<Food> getAllFoodsByName (String nameParameter) {
+	public ArrayList<Food> getAllFoodsByName (String nameParameter) {
 
 		String name = nameParameter.trim();
 
-		List<Food> getAllFoodsByName = em.createNamedQuery("Food.getAllFoodsByName").setParameter("name", name).getResultList();
+		ArrayList<Food> getAllFoodsByName = (ArrayList<Food>) em.createNamedQuery("Food.getAllFoodsByName").setParameter("name", name).getResultList();
 
 		return getAllFoodsByName;
 
@@ -53,9 +52,9 @@ public class NutriTracRESTDAO {
 	
 	
 
-	public  List<Food> getAllFoods() {
+	public  ArrayList<Food> getAllFoods() {
 
-		List<Food> allFoods = em.createNamedQuery("Food.getAllFoods").getResultList();
+		ArrayList<Food> allFoods = (ArrayList<Food>) em.createNamedQuery("Food.getAllFoods").getResultList();
 
 		return allFoods;
 
@@ -64,7 +63,13 @@ public class NutriTracRESTDAO {
 	
 	
 	public Food createFood(Food f) {
-
+		
+		//Food f = em.find(Food.class, f.getNdbno())
+		String ndbno = f.getNdbno() + " ";
+		Food myfood = getFoodById(ndbno);
+ 
+		if (myfood == null) {
+		
 		em.merge(f);
 
 		em.persist(f);
@@ -73,6 +78,10 @@ public class NutriTracRESTDAO {
 
 		return persistedFood;
 
+		
+		}
+		
+		else return null;
 	}
 	
 	public Food updateFood(Food f) {
@@ -117,9 +126,9 @@ public class NutriTracRESTDAO {
 	}
 	
 	
-   public  List<Nutrient> getAllNutrients() {
+   public  ArrayList<Nutrient> getAllNutrients() {
 
-	List<Nutrient> allNutrients = em.createNamedQuery("Nutrient.getAllNutrients").getResultList();
+	   ArrayList<Nutrient> allNutrients = (ArrayList<Nutrient>) em.createNamedQuery("Nutrient.getAllNutrients").getResultList();
 
 	return allNutrients;
 
@@ -140,9 +149,9 @@ public class NutriTracRESTDAO {
 
 	}
    
-   public  List<Measure> getAllMeasures() {
+   public  ArrayList<Measure> getAllMeasures() {
 
-	List<Measure> allMeasures = em.createNamedQuery("Measure.getAllMeasures").getResultList();
+	   ArrayList<Measure> allMeasures = (ArrayList<Measure>) em.createNamedQuery("Measure.getAllMeasures").getResultList();
 
 	return allMeasures;
 

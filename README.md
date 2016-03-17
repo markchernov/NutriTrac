@@ -31,5 +31,5 @@ Project Overview:
 We are building full stack web app that will consume external RESTful API services. 
 
 Critical Features List
-
+User will be able to search for foods by name, and find nutritional information on their selected foods
 
