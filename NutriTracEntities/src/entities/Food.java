@@ -14,7 +14,10 @@ import javax.persistence.Table;
 @Table(name = "food")
 
 
-@NamedQueries({ @NamedQuery(name = "Food.getAllFoods", query = "select f from Food f")})
+@NamedQueries({ @NamedQuery(name = "Food.getAllFoods", query = "select f from Food f"),
+	@NamedQuery(name = "Food.getAllFoodsByName", query = "select f from Food f where f.name = :name"),
+	@NamedQuery(name = "Food.getLastFoodById", query = "select f from Food f where f.ndbno = (SELECT MAX(f2.ndbno)from Food f2)")
+})
 
 
 
