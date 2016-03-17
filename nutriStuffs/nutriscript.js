@@ -15,10 +15,13 @@ var getFood = function (event) {
     xhrMethod('GET', displayResponse, 'http://api.nal.usda.gov/ndb/reports/?ndbno=01225&type=b&format=JSON&api_key=', 'luHpcYzCW0AElRtcgcBmVrWyfRqYQQobhJuycS70');
 };
 
-var xhrMethod = function (method, callback, url, apiKey) {
+var xhrMethod = function (method, callback, url, apiKey, obj) {
     var xhr = new XMLHttpRequest();
     if (apiKey) {
         xhr.open(method, url + apiKey);
+    } else if (!apiKey && obj) {
+        xhr.open(method, url);
+        xhr.setRequestHeader('Content-Type', 'application/json');
     } else {
         xhr.open(method, url);
     }
@@ -30,13 +33,19 @@ var xhrMethod = function (method, callback, url, apiKey) {
             if (apiKey) {
                 var foodObj = JSON.parse(xhr.responseText);
                 callback(foodObj);
-            } else {
+            } else if (obj) {
+                var responseString = xhr.responseText;
+                callback(responseString);
+            }else {
                 var responseString = xhr.responseText;
                 callback(responseString);
             }
         } else {
             console.log(xhr.status);
         }
+    }
+    if(obj) {
+        xhr.send(obj);
     }
     xhr.send();
 }
@@ -56,6 +65,7 @@ var displayResponse = function (foodObj) {
     }
     var newFood = new food(foodObj.report.food.name, foodObj.report.food.ndbno, nutrients);
     console.log(newFood);
+    xhrMethod('POST', displayPing, 'http://52.89.185.185:8080/NutriTrac/rest/foodObj', false, newFood);
 };
 
 function food(name, ndbno, nutrients) {
