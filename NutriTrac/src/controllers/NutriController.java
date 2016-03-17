@@ -1,18 +1,19 @@
 package controllers;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
+
+import data.NutriTracRESTDAO;
 
 @RestController
 //@SessionAttributes("loginCred")
 public class NutriController {
 
 
-//		@Autowired
-//		private Left2SpendDAO leftDAO;
+		@Autowired
+		private NutriTracRESTDAO NutDAO;
 		
 
 //		@ModelAttribute("loginCred")
