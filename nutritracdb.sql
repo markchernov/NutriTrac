@@ -40,8 +40,8 @@ CREATE TABLE IF NOT EXISTS `nutrient` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nutrient_id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
-  `group` VARCHAR(45) NULL,
-  `unit_` VARCHAR(45) NULL,
+  `grp` VARCHAR(45) NULL,
+  `unit` VARCHAR(45) NULL,
   `value` VARCHAR(45) NULL,
   `ndbno` INT NULL,
   PRIMARY KEY (`id`),
@@ -58,12 +58,12 @@ CREATE INDEX `FK_nutrient_food_idx` ON `nutrient` (`ndbno` ASC);
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `measures`
+-- Table `measure`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `measures` ;
+DROP TABLE IF EXISTS `measure` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `measures` (
+CREATE TABLE IF NOT EXISTS `measure` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `label` VARCHAR(140) NULL,
   `eqv` FLOAT NULL,
@@ -85,12 +85,44 @@ CREATE TABLE IF NOT EXISTS `measures` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `FK_measures_foodId_idx` ON `measures` (`ndbno_id` ASC);
+CREATE INDEX `FK_measures_foodId_idx` ON `measure` (`ndbno_id` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `FK_measures_nutrientId_idx` ON `measures` (`nutrient_id` ASC);
+CREATE INDEX `FK_measures_nutrientId_idx` ON `measure` (`nutrient_id` ASC);
 
 SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Data for table `food`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `foodtracdb`;
+INSERT INTO `food` (`ndbno`, `name`) VALUES (01225, 'Dulce de Leche');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `nutrient`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `foodtracdb`;
+INSERT INTO `nutrient` (`id`, `nutrient_id`, `name`, `grp`, `unit`, `value`, `ndbno`) VALUES (1, 255, 'Water', 'Proximates', 'g', '28.71', 1);
+INSERT INTO `nutrient` (`id`, `nutrient_id`, `name`, `grp`, `unit`, `value`, `ndbno`) VALUES (2, 208, 'Energy', 'Proximates', 'kcal', '315', 2);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `measure`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `foodtracdb`;
+INSERT INTO `measure` (`id`, `label`, `eqv`, `qty`, `value`, `ndbno_id`, `nutrient_id`) VALUES (1, 'tbsp', 19.0, 1.0, '5.45', 1, 1);
+INSERT INTO `measure` (`id`, `label`, `eqv`, `qty`, `value`, `ndbno_id`, `nutrient_id`) VALUES (2, 'tbsp', 19.0, 1.0, '60', 1, 2);
+
+COMMIT;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

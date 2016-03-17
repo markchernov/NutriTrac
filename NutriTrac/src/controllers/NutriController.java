@@ -14,13 +14,15 @@ public class NutriController {
 //		@Autowired
 //		private Left2SpendDAO leftDAO;
 		
-		//@ModelAttribute("loginCred")
-		public Object setPersonLoggedIn() {
-			Object logIn = new Object();
-			//LogInItems logIn = new LogInItems();
-			return logIn;
-		}
-		
+
+//		@ModelAttribute("loginCred")
+//		public Object setPersonLoggedIn() {
+//			Object logIn = new Object();
+//			//LogInItems logIn = new LogInItems();
+//			return logIn;
+//		}
+//		
+
 		@ResponseBody
 		@RequestMapping(path="ping")
 		public String ping() {
