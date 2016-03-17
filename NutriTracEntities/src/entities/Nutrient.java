@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -47,7 +48,7 @@ public class Nutrient {
 	
 	
 	@OneToMany( fetch = FetchType.EAGER, mappedBy = "nutrient")
-	private Collection<Measure> measures;
+	private ArrayList<Measure> measures;
 	
 	
 	
@@ -65,7 +66,7 @@ public class Nutrient {
 
 
 
-	public Collection<Measure> getMeasures() {
+	public ArrayList<Measure> getMeasures() {
 		return measures;
 	}
 
@@ -85,7 +86,7 @@ public class Nutrient {
 
 
 
-	public void setMeasures(Collection<Measure> measures) {
+	public void setMeasures(ArrayList<Measure> measures) {
 		this.measures = measures;
 	}
 

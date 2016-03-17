@@ -22,7 +22,7 @@ public class TestEntities {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		
+		System.out.println(getFoodById("1225")); 
 		
 		List<Food> myFoods = getAllFoods(); 
 		
@@ -87,6 +87,17 @@ public class TestEntities {
 		List<Measure> allMeasures = em.createNamedQuery("Measure.getAllMeasures").getResultList();
 
 		return allMeasures;
+
+	}
+	public static Food getFoodById(String ndbnoParameter) {
+
+		int ndbno = Integer.parseInt(ndbnoParameter.trim());
+
+		Food food = em.find(Food.class, ndbno);
+
+		System.out.println(food);
+
+		return food;
 
 	}
 
