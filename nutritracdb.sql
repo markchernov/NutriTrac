@@ -68,17 +68,26 @@ CREATE TABLE IF NOT EXISTS `measures` (
   `eqv` FLOAT NULL,
   `qty` FLOAT NULL,
   `value` VARCHAR(45) NULL,
-  `ndbno_id` INT NULL,
+  `ndbno_id` INT NOT NULL,
+  `nutrient_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `FK_measures_foodId`
     FOREIGN KEY (`ndbno_id`)
     REFERENCES `food` (`ndbno`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_measures_nutrientId`
+    FOREIGN KEY (`nutrient_id`)
+    REFERENCES `nutrient` (`nutrient_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
 CREATE INDEX `FK_measures_foodId_idx` ON `measures` (`ndbno_id` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `FK_measures_nutrientId_idx` ON `measures` (`nutrient_id` ASC);
 
 SHOW WARNINGS;
 
