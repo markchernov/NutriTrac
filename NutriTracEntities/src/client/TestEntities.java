@@ -121,8 +121,8 @@ public static Food createFood() {
 	ArrayList<Nutrient> myListOfNutrients = new ArrayList<Nutrient>();
 	
 	
-	fu.setName("breakfast taco");
-	fu.setNdbno(4329);
+	fu.setName("breakfast tea");
+	fu.setNdbno(4330);
 	
 	myNutrient.setFood(fu.getNdbno());
 	myNutrient.setName("Protein");

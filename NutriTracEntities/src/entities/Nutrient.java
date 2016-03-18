@@ -22,6 +22,10 @@ import javax.persistence.Table;
 public class Nutrient {
 
 	
+	
+
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
@@ -58,6 +62,16 @@ public class Nutrient {
 		return nutrientId;
 	}
 
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+
+	public void setNutrientId(int nutrientId) {
+		this.nutrientId = nutrientId;
+	}
 
 
 

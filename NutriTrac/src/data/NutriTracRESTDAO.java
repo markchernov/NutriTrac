@@ -64,41 +64,11 @@ public class NutriTracRESTDAO {
 	
 	public Food createFood(Food f) {
 		
-		Food fu = new Food();
-		Measure myMeasure = new Measure();
-		Nutrient myNutrient = new Nutrient();
-		ArrayList<Measure> myListOfMeasures = new ArrayList<>();
-		ArrayList<Nutrient> myListOfNutrients = new ArrayList<>();
-		
-		
-		fu.setName("Oatmeal");
-		fu.setNdbno(1234);
-		fu.setMeasures(myListOfMeasures);
-		fu.setNutrients(myListOfNutrients);
-		
-
-		
-		myMeasure.setEqv(12.5);
-		myMeasure.setFood(fu.getNdbno());
-		myMeasure.setLabel("myLabel");
-		myMeasure.setNutrient(myNutrient.getNutrientId());
-		myMeasure.setQty(5.5);
-		myMeasure.setValue("0.045");
-		
-		myNutrient.setFood(fu.getNdbno());
-		myNutrient.setName("Protein");
-		myNutrient.setGroup("Proximates");
-		myNutrient.setUnit("cup");
-		myNutrient.setValue("0.234");
-		myNutrient.setMeasures(myListOfMeasures);
-		
-		myListOfMeasures.add(myMeasure);
-		myListOfNutrients.add(myNutrient);
-		
+	
 	
 		
-		//Food f = em.find(Food.class, f.getNdbno())
-		String ndbno = f.getNdbno() + " ";
+		Food fu = em.find(Food.class, f.getNdbno());
+		String ndbno = fu.getNdbno() + " ";
 		Food myfood = getFoodById(ndbno);
  
 		if (myfood == null) {
