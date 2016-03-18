@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -14,8 +15,8 @@ import entities.Nutrient;
 
 public class TestEntities {
 	
-	
 
+	
 	static EntityManagerFactory emf = Persistence.createEntityManagerFactory("NutriPU");
 	static EntityManager em = emf.createEntityManager();
 	
@@ -23,7 +24,7 @@ public class TestEntities {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		
+	
 		System.out.println(createFood());
 		
 		
@@ -108,54 +109,71 @@ public class TestEntities {
 	}
 
 public static Food createFood() {
+	
+	EntityTransaction et = em.getTransaction();
+	et.begin();
+
 		
-		Food fu = new Food();
+	Food fu = new Food();
+	Measure myMeasure = new Measure();
+	Nutrient myNutrient = new Nutrient();
+	ArrayList<Measure> myListOfMeasures = new ArrayList<Measure>();
+	ArrayList<Nutrient> myListOfNutrients = new ArrayList<Nutrient>();
+	
+	
+	fu.setName("breakfast buritto2");
+	fu.setNdbno(4325);
+	fu.setMeasures(myListOfMeasures);
+	fu.setNutrients(myListOfNutrients);
+	
+	myNutrient.setFood(fu.getNdbno());
+	myNutrient.setName("Protein");
+	myNutrient.setGroup("Proximates");
+	myNutrient.setUnit("cup");
+	myNutrient.setValue("0.234");
+	myNutrient.setMeasures(myListOfMeasures);
+	myNutrient.setNutrientId(207);
+	
+	
+	em.merge(myNutrient);
+	em.persist(myNutrient);
+	
+	Nutrient PersistedNutrient = (Nutrient) em.createNamedQuery("Nutrient.getLastNutrientById").getSingleResult();
+	
+	Integer nutId= PersistedNutrient.getId();
+	
+	myMeasure.setEqv(12.5);
+	myMeasure.setFood(fu.getNdbno());
+	myMeasure.setLabel("myLabel");
+	myMeasure.setNutrient(nutId);
+	myMeasure.setQty(5.5);
+	myMeasure.setValue("0.045");
+	
+
+	myListOfMeasures.add(myMeasure);
+	myListOfNutrients.add(myNutrient);
 		
-		Measure myMeasure = new Measure();
-		Nutrient myNutrient = new Nutrient();
-		ArrayList<Measure> myListOfMeasures = new ArrayList<Measure>();
-		ArrayList<Nutrient> myListOfNutrients = new ArrayList<Nutrient>();
-		
-		myMeasure.setEqv(12.5);
-		myMeasure.setFood(fu);
-		myMeasure.setLabel("myLabel");
-		myMeasure.setNutrient(myNutrient);
-		myMeasure.setQty(5.5);
-		myMeasure.setValue("0.045");
-		
-		myNutrient.setFood(fu);
-		myNutrient.setName("Protein");
-		myNutrient.setGroup("Proximates");
-		myNutrient.setUnit("cup");
-		myNutrient.setValue("0.234");
-		myNutrient.setMeasures(myListOfMeasures);
-		
-		myListOfMeasures.add(myMeasure);
-		myListOfNutrients.add(myNutrient);
-		
-		fu.setName("Oatmeal");
-		fu.setNdbno(1234);
-		fu.setMeasures(myListOfMeasures);
-		fu.setNutrients(myListOfNutrients);
-		
-		System.out.println("Printing FU");
-		System.out.println(fu.getName());
-		System.out.println(fu);
-		
-/*		
+	
 		//Food f = em.find(Food.class, f.getNdbno())
 		String ndbno = fu.getNdbno() + " ";
-		Food myfood = getFoodById(ndbno);*/
+		Food myfood = getFoodById(ndbno);
+		
+	
  
-	/*	System.out.println("Printing myfood which supposed to be null");
+		System.out.println("Printing myfood which supposed to be null");
 		System.out.println(myfood);
 		
-		if (myfood == null) {*/
+		if (myfood == null) {
 		
 		em.merge(fu);
+		System.out.println("Merged!");
+		System.out.println(fu);
 
 		em.persist(fu);
+		System.out.println("Persisted!");
+		System.out.println(fu);
 		
+		et.commit();
 
 		Food persistedFood = (Food) em.createNamedQuery("Food.getLastFoodById").getSingleResult();
 		
@@ -165,9 +183,9 @@ public static Food createFood() {
 		return persistedFood;
 
 		
-		/*}
+		}
 		
-		else return null;*/
+		else return null;
 	}
 	
 }

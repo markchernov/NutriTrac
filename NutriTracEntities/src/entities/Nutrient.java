@@ -1,11 +1,9 @@
 package entities;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +17,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "nutrient")
 
-@NamedQueries({ @NamedQuery(name = "Nutrient.getAllNutrients", query = "select n from Nutrient n")})
+@NamedQueries({ @NamedQuery(name = "Nutrient.getAllNutrients", query = "select n from Nutrient n"),
+	@NamedQuery(name = "Nutrient.getLastNutrientById", query = "select n from Nutrient n where n.id = (SELECT MAX(n2.id)from Nutrient n2)")})
 
 public class Nutrient {
 
@@ -29,10 +28,8 @@ public class Nutrient {
 	@Column(name="id")
 	private int id;
 	
-	
-	@ManyToOne
-	@JoinColumn(name = "ndbno")
-	private Food food;
+	@Column(name="ndbno")
+	private Integer food;
 	
 	@Column(name="nutrient_id")
 	private int nutrientId;
@@ -47,7 +44,9 @@ public class Nutrient {
 	private String value;
 	
 	
-	@OneToMany( fetch = FetchType.EAGER, mappedBy = "nutrient")
+	@OneToMany
+	@JoinColumn(name="nutrient_id",
+	referencedColumnName="id")
 	private ArrayList<Measure> measures;
 	
 	
@@ -55,9 +54,7 @@ public class Nutrient {
 	public Nutrient () {}
 
 
-	
-	
-	
+
 	public int getNutrientId() {
 		return nutrientId;
 	}
@@ -99,7 +96,7 @@ public class Nutrient {
 	}
 
 
-	public Food getFood() {
+	public Integer getFood() {
 		return food;
 	}
 
@@ -124,7 +121,7 @@ public class Nutrient {
 	}
 
 
-	public void setFood(Food food) {
+	public void setFood(int food) {
 		this.food = food;
 	}
 

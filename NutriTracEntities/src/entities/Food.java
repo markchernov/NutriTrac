@@ -1,11 +1,11 @@
 package entities;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,10 +29,12 @@ public class Food {
     
     private String name;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "food")
+	@OneToMany
+	@JoinColumn(name="ndbno", referencedColumnName="ndbno")
 	private ArrayList<Nutrient> nutrients;
 
-	@OneToMany( fetch = FetchType.EAGER, mappedBy = "food")
+	@OneToMany
+	@JoinColumn(name="ndbno_id", referencedColumnName="ndbno")
 	private ArrayList<Measure> measures;
 
 	

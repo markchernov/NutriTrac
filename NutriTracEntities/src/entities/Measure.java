@@ -11,6 +11,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.eclipse.persistence.jpa.config.Cascade;
+
 @Entity
 @Table(name = "measure")
 
@@ -23,13 +25,11 @@ public class Measure {
 	@Column(name="id")
 	private int measureId;
 	
-	@ManyToOne
-	@JoinColumn(name = "ndbno_id")
-	private Food food;
+	@Column(name = "ndbno_id")
+	private Integer food;
 	
-	@ManyToOne
-	@JoinColumn(name = "nutrient_id")
-	private Nutrient nutrient;
+	@Column(name = "nutrient_id")
+	private Integer nutrient;
 	
 	
 	private String label;
@@ -53,13 +53,13 @@ public class Measure {
 
 
 
-	public Nutrient getNutrient() {
+	public Integer getNutrient() {
 		return nutrient;
 	}
 
 
 
-	public void setNutrient(Nutrient nutrient) {
+	public void setNutrient(Integer nutrient) {
 		this.nutrient = nutrient;
 	}
 
@@ -71,7 +71,7 @@ public class Measure {
 	}
 
 
-	public Food getFood() {
+	public Integer getFood() {
 		return food;
 	}
 
@@ -95,7 +95,7 @@ public class Measure {
 		return value;
 	}
 
-	public void setFood(Food food) {
+	public void setFood(Integer food) {
 		this.food = food;
 	}
 
