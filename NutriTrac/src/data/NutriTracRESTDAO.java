@@ -68,10 +68,8 @@ public class NutriTracRESTDAO {
 	
 		
 		Food fu = em.find(Food.class, f.getNdbno());
-		String ndbno = fu.getNdbno() + " ";
-		Food myfood = getFoodById(ndbno);
  
-		if (myfood == null) {
+		if (fu == null) {
 		
 		em.merge(f);
 
@@ -85,6 +83,7 @@ public class NutriTracRESTDAO {
 		}
 		
 		else return null;
+				
 	}
 	
 	public Food updateFood(Food f) {
