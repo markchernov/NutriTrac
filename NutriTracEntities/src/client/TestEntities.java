@@ -121,10 +121,8 @@ public static Food createFood() {
 	ArrayList<Nutrient> myListOfNutrients = new ArrayList<Nutrient>();
 	
 	
-	fu.setName("breakfast buritto2");
-	fu.setNdbno(4325);
-	fu.setMeasures(myListOfMeasures);
-	fu.setNutrients(myListOfNutrients);
+	fu.setName("breakfast taco");
+	fu.setNdbno(4329);
 	
 	myNutrient.setFood(fu.getNdbno());
 	myNutrient.setName("Protein");
@@ -135,17 +133,23 @@ public static Food createFood() {
 	myNutrient.setNutrientId(207);
 	
 	
-	em.merge(myNutrient);
-	em.persist(myNutrient);
+	//em.merge(myNutrient);
+	//em.persist(myNutrient);
 	
-	Nutrient PersistedNutrient = (Nutrient) em.createNamedQuery("Nutrient.getLastNutrientById").getSingleResult();
 	
-	Integer nutId= PersistedNutrient.getId();
+	//Nutrient persistedNutrient = (Nutrient) em.createNamedQuery("Nutrient.getLastNutrientById").getSingleResult();
 	
+	//Integer nutId= persistedNutrient.getId();
+	
+    /*Measure persistedMeasure = (Measure) em.createNamedQuery("Measure.getLastMeasureById").getSingleResult();
+	
+	Integer mesId= persistedMeasure.getId();*/
+	
+	//myMeasure.setMeasureId(mesId);
 	myMeasure.setEqv(12.5);
 	myMeasure.setFood(fu.getNdbno());
 	myMeasure.setLabel("myLabel");
-	myMeasure.setNutrient(nutId);
+	//myMeasure.setNutrient(nutId);
 	myMeasure.setQty(5.5);
 	myMeasure.setValue("0.045");
 	
@@ -153,6 +157,8 @@ public static Food createFood() {
 	myListOfMeasures.add(myMeasure);
 	myListOfNutrients.add(myNutrient);
 		
+	fu.setMeasures(myListOfMeasures);
+	fu.setNutrients(myListOfNutrients);
 	
 		//Food f = em.find(Food.class, f.getNdbno())
 		String ndbno = fu.getNdbno() + " ";

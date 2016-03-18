@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,7 +25,7 @@ public class Nutrient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 	
 	@Column(name="ndbno")
 	private Integer food;
@@ -75,7 +74,7 @@ public class Nutrient {
 
 
 
-	public void setNutrientId(int nutrientId) {
+	public void setNutrientId(Integer nutrientId) {
 		this.nutrientId = nutrientId;
 	}
 
@@ -121,7 +120,7 @@ public class Nutrient {
 	}
 
 
-	public void setFood(int food) {
+	public void setFood(Integer food) {
 		this.food = food;
 	}
 

@@ -69,8 +69,8 @@ CREATE TABLE IF NOT EXISTS `measure` (
   `eqv` FLOAT NULL,
   `qty` FLOAT NULL,
   `value` VARCHAR(45) NULL,
-  `ndbno_id` INT NOT NULL,
-  `nutrient_id` INT NOT NULL,
+  `ndbno_id` INT NULL,
+  `nutrient_id` INT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `FK_measures_foodId`
     FOREIGN KEY (`ndbno_id`)

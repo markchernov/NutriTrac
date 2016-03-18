@@ -16,7 +16,8 @@ import org.eclipse.persistence.jpa.config.Cascade;
 @Entity
 @Table(name = "measure")
 
-@NamedQueries({ @NamedQuery(name = "Measure.getAllMeasures", query = "select m from Measure m")})
+@NamedQueries({ @NamedQuery(name = "Measure.getAllMeasures", query = "select m from Measure m"),
+	@NamedQuery(name = "Measure.getLastMeasureById", query = "select m from Measure m where m.measureId = (SELECT MAX(m2.measureId)from Measure m2)")})
 
 public class Measure {
 
@@ -48,6 +49,13 @@ public class Measure {
 	
 	public int getMeasureId() {
 		return measureId;
+	}
+
+
+
+
+	public void setMeasureId(int measureId) {
+		this.measureId = measureId;
 	}
 
 

@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -29,11 +30,11 @@ public class Food {
     
     private String name;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="ndbno", referencedColumnName="ndbno")
 	private ArrayList<Nutrient> nutrients;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="ndbno_id", referencedColumnName="ndbno")
 	private ArrayList<Measure> measures;
 
