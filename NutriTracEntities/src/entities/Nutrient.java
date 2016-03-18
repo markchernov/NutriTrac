@@ -29,10 +29,10 @@ public class Nutrient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private Integer id;
+	private int id;
 	
 	@Column(name="ndbno")
-	private Integer food;
+	private int food;
 	
 	@Column(name="nutrient_id")
 	private int nutrientId;
@@ -67,18 +67,9 @@ public class Nutrient {
 	}
 
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-
-
-
-	public void setNutrientId(int nutrientId) {
-		this.nutrientId = nutrientId;
-	}
-
-
-
 
 	public ArrayList<Measure> getMeasures() {
 		return measures;
@@ -92,7 +83,7 @@ public class Nutrient {
 
 
 
-	public void setNutrientId(Integer nutrientId) {
+	public void setNutrientId(int nutrientId) {
 		this.nutrientId = nutrientId;
 	}
 
@@ -113,7 +104,7 @@ public class Nutrient {
 	}
 
 
-	public Integer getFood() {
+	public int getFood() {
 		return food;
 	}
 
@@ -138,7 +129,7 @@ public class Nutrient {
 	}
 
 
-	public void setFood(Integer food) {
+	public void setFood(int food) {
 		this.food = food;
 	}
 

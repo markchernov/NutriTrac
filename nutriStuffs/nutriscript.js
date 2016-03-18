@@ -20,6 +20,8 @@ var xhrMethod = function (method, callback, url, apiKey, obj) {
     if (apiKey) {
         xhr.open(method, url + apiKey);
     } else if (!apiKey && obj) {
+        console.log("in the else ifXX");
+        console.log(method);
         xhr.open(method, url);
         xhr.setRequestHeader('Content-Type', 'application/json');
     } else {
@@ -46,8 +48,9 @@ var xhrMethod = function (method, callback, url, apiKey, obj) {
     }
     if(obj) {
         xhr.send(JSON.stringify(obj));
+    } else{
+    xhr.send();        
     }
-    xhr.send();
 }
 
 var displayResponse = function (foodObj) {
@@ -57,10 +60,10 @@ var displayResponse = function (foodObj) {
     for (var i = 0; i < foodObj.report.food.nutrients.length; i++) {
         var measureArr = [];
         for (var j = 0; j < foodObj.report.food.nutrients[i].measures.length; j++) {
-            var meas = new measure(foodObj.report.food.nutrients[i].measures[j].eqv, foodObj.report.food.nutrients[i].measures[j].label, foodObj.report.food.nutrients[i].measures[j].qty, foodObj.report.food.nutrients[i].measures[j].value);
+            var meas = new measure(foodObj.report.food.nutrients[i].measures[j].eqv, foodObj.report.food.nutrients[i].measures[j].label, foodObj.report.food.nutrients[i].measures[j].qty, foodObj.report.food.nutrients[i].measures[j].value, foodObj.report.food.nutrients[i].nutrient_id, foodObj.report.food.ndbno);
             measureArr.push(meas);
         }
-        var nut = new nutrient(foodObj.report.food.nutrients[i].group, foodObj.report.food.nutrients[i].name, foodObj.report.food.nutrients[i].nutrient_id, foodObj.report.food.nutrients[i].unit, foodObj.report.food.nutrients[i].value, measureArr);
+        var nut = new nutrient(foodObj.report.food.nutrients[i].group, foodObj.report.food.nutrients[i].name, foodObj.report.food.nutrients[i].nutrient_id, foodObj.report.food.nutrients[i].unit, foodObj.report.food.nutrients[i].value, measureArr, foodObj.report.food.ndbno);
         nutrients.push(nut);
     }
     var newFood = new food(foodObj.report.food.name, foodObj.report.food.ndbno, nutrients);
@@ -74,20 +77,24 @@ function food(name, ndbno, nutrients) {
     this.nutrients = nutrients;
 }
 
-function nutrient(group, name, nutrient_id, unit, value, measures) {
+function nutrient(group, name, nutrient_id, unit, value, measures, food) {
     this.group = group;
     this.name = name;
-    this.nutrient_id = nutrient_id;
+    this.nutrientId = nutrient_id;
     this.unit = unit;
     this.value = value;
     this.measures = measures;
+    this.food = food;
+    
 }
 
-function measure(eqv, label, qty, value) {
+function measure(eqv, label, qty, value, nutrient, food) {
     this.eqv = eqv;
     this.label = label;
     this.qty = qty;
     this.value = value;
+    this.nutrient = nutrient;
+    this.food = food;
 }
 
 var ping = function (event) {

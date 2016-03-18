@@ -44,7 +44,7 @@ public class NutriController {
 //					meas.setFood(foodJson);
 //				}
 //			}
-			
+			System.out.println(foodJson);
 			System.out.println("Food Number : " + foodJson.getNdbno() +
 							"\n Food Name : " + foodJson.getName() +
 							"\n Food Nutrient 2 : " + foodJson.getNutrients().get(2) +
@@ -57,7 +57,11 @@ public class NutriController {
 							"\n Measure Label: " + foodJson.getNutrients().get(2).getMeasures().get(0).getLabel() +
 							"\n Measure Qty : " + foodJson.getNutrients().get(2).getMeasures().get(0).getQty() +
 							"\n Measure Value : " + foodJson.getNutrients().get(2).getMeasures().get(0).getValue());
-			
+			System.out.println("xxxxxxxxxxxxx");
+			System.out.println("nutrient food id " + foodJson.getNutrients().get(2).getFood());
+			System.out.println("measures food id " + foodJson.getNutrients().get(2).getMeasures().get(0).getFood());
+			System.out.println("nutrient nutrient id " + foodJson.getNutrients().get(2).getMeasures().get(0).getNutrient());
+			System.out.println("xxxxxxxxxxxxx");
 			//TODO fix return to return true if object was successfully added to database...
 			return true;
 		}
