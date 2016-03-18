@@ -92,7 +92,7 @@ public class Food {
 
 	@Override
 	public String toString() {
-		return "Food [ndbno=" + ndbno + ", name=" + name + ", nutrients=" + nutrients + ", measures=" + measures + "]";
+		return "Food [ndbno=" + ndbno + ", name=" + name + "]";
 	}
 	
 	

@@ -34,9 +34,9 @@ public class Measure {
 	
 	private String label;
 	
-	private float eqv;
+	private double eqv;
 	
-	private float qty;
+	private double qty;
 	
 	private String value;
 	
@@ -56,14 +56,6 @@ public class Measure {
 	public Nutrient getNutrient() {
 		return nutrient;
 	}
-
-
-
-
-	public void setMeasureId(int measureId) {
-		this.measureId = measureId;
-	}
-
 
 
 
@@ -89,12 +81,12 @@ public class Measure {
 	}
 
 
-	public float getEqv() {
+	public double getEqv() {
 		return eqv;
 	}
 
 
-	public float getQty() {
+	public double getQty() {
 		return qty;
 	}
 
@@ -113,12 +105,12 @@ public class Measure {
 	}
 
 
-	public void setEqv(float eqv) {
+	public void setEqv(double eqv) {
 		this.eqv = eqv;
 	}
 
 
-	public void setQty(float qty) {
+	public void setQty(double qty) {
 		this.qty = qty;
 	}
 
