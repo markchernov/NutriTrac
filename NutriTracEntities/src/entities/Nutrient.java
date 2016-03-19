@@ -18,6 +18,7 @@ import javax.persistence.Table;
 @Table(name = "nutrient")
 
 @NamedQueries({ @NamedQuery(name = "Nutrient.getAllNutrients", query = "select n from Nutrient n"),
+	@NamedQuery(name = "Nutrient.getAllNutrientsByName", query = "select n from Nutrient n where n.name = :name"),
 	@NamedQuery(name = "Nutrient.getLastNutrientById", query = "select n from Nutrient n where n.id = (SELECT MAX(n2.id)from Nutrient n2)")})
 
 public class Nutrient {
@@ -49,7 +50,6 @@ public class Nutrient {
 	
 	
 	@OneToMany(cascade = CascadeType.ALL)
-//	@OneToMany
 	@JoinColumn(name="nutrient_id",
 	referencedColumnName="id")
 	private ArrayList<Measure> measures;

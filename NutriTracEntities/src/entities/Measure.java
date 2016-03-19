@@ -5,18 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
-import org.eclipse.persistence.jpa.config.Cascade;
 
 @Entity
 @Table(name = "measure")
 
 @NamedQueries({ @NamedQuery(name = "Measure.getAllMeasures", query = "select m from Measure m"),
+	@NamedQuery(name = "Measure.getAllMeasuresByLabel", query = "select m from Measure m where m.label = :label"),
 	@NamedQuery(name = "Measure.getLastMeasureById", query = "select m from Measure m where m.measureId = (SELECT MAX(m2.measureId)from Measure m2)")})
 
 public class Measure {
@@ -27,10 +24,10 @@ public class Measure {
 	private int measureId;
 	
 	@Column(name = "ndbno_id")
-	private Integer food;
+	private int food;
 	
 	@Column(name = "nutrient_id")
-	private Integer nutrient;
+	private int nutrient;
 	
 	
 	private String label;
@@ -67,7 +64,7 @@ public class Measure {
 
 
 
-	public void setNutrient(Integer nutrient) {
+	public void setNutrient(int nutrient) {
 		this.nutrient = nutrient;
 	}
 
@@ -103,7 +100,7 @@ public class Measure {
 		return value;
 	}
 
-	public void setFood(Integer food) {
+	public void setFood(int food) {
 		this.food = food;
 	}
 

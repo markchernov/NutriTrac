@@ -17,15 +17,12 @@ public class NutriTracRESTDAO {
 
 	private EntityManager em;
 
-	// ------------ FOOD
+	// ------------ FOOD ----------------------------------------------------
+	// ----GET-----
 
-	public Food getFoodById(String ndbnoParameter) {
+	public Food getFoodById(int ndbnoParameter) {
 
-		int ndbno = Integer.parseInt(ndbnoParameter.trim());
-
-		Food food = em.find(Food.class, ndbno);
-
-		System.out.println(food);
+		Food food = em.find(Food.class, ndbnoParameter);
 
 		return food;
 
@@ -35,8 +32,8 @@ public class NutriTracRESTDAO {
 
 		String name = nameParameter.trim();
 
-		ArrayList<Food> getAllFoodsByName = (ArrayList<Food>) em.createNamedQuery("Food.getAllFoodsByName")
-				.setParameter("name", name).getResultList();
+		ArrayList<Food> getAllFoodsByName =  new ArrayList<Food>(em.createNamedQuery("Food.getAllFoodsByName")
+				.setParameter("name", name).getResultList());
 
 		return getAllFoodsByName;
 
@@ -44,33 +41,37 @@ public class NutriTracRESTDAO {
 
 	public ArrayList<Food> getAllFoods() {
 
-		ArrayList<Food> allFoods = (ArrayList<Food>) em.createNamedQuery("Food.getAllFoods").getResultList();
+		ArrayList<Food> allFoods = new ArrayList<Food>(em.createNamedQuery("Food.getAllFoods").getResultList());
 
 		return allFoods;
 
 	}
 
-	public Food createFood(Food f) {
+	public ArrayList<Food> getAllFoodsByNuttrient(String nutrient) {
 
-		System.out.println(f);
+		ArrayList<Food> allFoodsByNutrientName = new ArrayList<Food>(em.createNamedQuery("Food.getAllFoodsByNutrientName").setParameter("nutrient", nutrient).getResultList());
+
+		return allFoodsByNutrientName;
+
+	}
+	
+	
+	
+	
+	// ----POST-----
+
+	public Food createFood(Food f) {
 
 		Food fu = em.find(Food.class, f.getNdbno());
 
 		if (fu == null) {
-//			for (Nutrient nut : f.getNutrients()) {
-//				em.persist(nut);
-//				for (Measure meas : nut.getMeasures()) {
-//					em.persist(meas);
-//				}
-//			}
+
 			em.merge(f);
 
 			em.persist(f);
-			Food returned = em.find(Food.class, f.getNdbno());
-			// Food persistedFood = (Food)
-			// em.createNamedQuery("Food.getLastFoodById").getSingleResult();
+			Food persistedFood = em.find(Food.class, f.getNdbno());
 
-			return returned;
+			return persistedFood;
 
 		}
 
@@ -79,6 +80,7 @@ public class NutriTracRESTDAO {
 
 	}
 
+	// ----PUT-----
 	public Food updateFood(Food f) {
 
 		em.merge(f);
@@ -87,36 +89,60 @@ public class NutriTracRESTDAO {
 
 		int ndbno = f.getNdbno();
 
-		Food persistedFood = em.find(Food.class, ndbno);
+		Food updatedFood = em.find(Food.class, ndbno);
 
-		return persistedFood;
+		return updatedFood;
 
 	}
 
-	// --------------------------------- NUTRIENT
+	// ----DELETE-----
+	public Food deleteFood(Food f) {
 
-	public Nutrient getNutrientById(String idParameter) {
+		Food fu = em.find(Food.class, f.getNdbno());
 
-		int id = Integer.parseInt(idParameter.trim());
+		em.remove(fu);
 
-		Nutrient nutrient = em.find(Nutrient.class, id);
+		return fu;
 
-		System.out.println(nutrient);
+	}
+
+	// --------------------------------- NUTRIENT -----------------------------------------------------
+	
+	// ----GET-----
+
+	public Nutrient getNutrientById(int idParameter) {
+
+		Nutrient nutrient = em.find(Nutrient.class, idParameter);
 
 		return nutrient;
 
 	}
 
+	public ArrayList<Nutrient> getNutrientByNutrientGroupId(int GroupIdParameter) {
+		
+		ArrayList<Nutrient> allNutrientsByNutrientGroupId = new ArrayList<Nutrient>(em.createNamedQuery("Nutrient.getAllNutrientsByName")
+				.getResultList());
+
+		return allNutrientsByNutrientGroupId;
+
+	}
+	
+	
+	
+	
+	
 	public ArrayList<Nutrient> getAllNutrients() {
 
-		ArrayList<Nutrient> allNutrients = (ArrayList<Nutrient>) em.createNamedQuery("Nutrient.getAllNutrients")
-				.getResultList();
+		ArrayList<Nutrient> allNutrients = new ArrayList<Nutrient>(em.createNamedQuery("Nutrient.getAllNutrients")
+				.getResultList());
 
 		return allNutrients;
 
 	}
 
 	// ------------------------------------ MEASURE
+
+	// ----GET-----
 
 	public Measure getMeasureById(String measureIdParameter) {
 
@@ -132,10 +158,14 @@ public class NutriTracRESTDAO {
 
 	public ArrayList<Measure> getAllMeasures() {
 
-		ArrayList<Measure> allMeasures = (ArrayList<Measure>) em.createNamedQuery("Measure.getAllMeasures")
-				.getResultList();
+		ArrayList<Measure> allMeasures = new ArrayList<Measure>(em.createNamedQuery("Measure.getAllMeasures")
+				.getResultList());
 
 		return allMeasures;
 
 	}
+
+	// ----GET-----
+	// ----GET-----
+	// ----GET-----
 }
