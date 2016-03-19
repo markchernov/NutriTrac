@@ -151,14 +151,14 @@ public static Food createFood() {
 	myMeasure.setEqv(12.5);
 	myMeasure.setFood(fu.getNdbno());
 	myMeasure.setLabel("myLabel");
-	myMeasure.setNutrient(16);
+//	myMeasure.setNutrient(myNutrient.getId());
 	myMeasure.setQty(5.5);
 	myMeasure.setValue("0.045");
 	
 	myMeasure2.setEqv(22.5);
 	myMeasure2.setFood(fu.getNdbno());
 	myMeasure2.setLabel("myLabel2");
-	myMeasure2.setNutrient(16);
+//	myMeasure2.setNutrient(myNutrient.getId());
 	myMeasure2.setQty(6.6);
 	myMeasure2.setValue("0.056");
 	
@@ -169,13 +169,13 @@ public static Food createFood() {
 	
 	
 	
-	myNutrient.setFood(fu.getNdbno());
-	myNutrient.setName("Protein");
-	myNutrient.setGroup("Proximates");
-	myNutrient.setUnit("cup");
-	myNutrient.setValue("0.234");
-	myNutrient.setMeasures(myListOfMeasures);
-	myNutrient.setNutrientId(207);
+//	myNutrient.setFood(fu.getNdbno());
+//	myNutrient.setName("Protein");
+//	myNutrient.setGroup("Proximates");
+//	myNutrient.setUnit("cup");
+//	myNutrient.setValue("0.234");
+//	myNutrient.setMeasures(myListOfMeasures);
+//	myNutrient.setNutrientId(207);
 	
 	
 	

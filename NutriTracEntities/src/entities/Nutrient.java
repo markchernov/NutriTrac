@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,7 +48,8 @@ public class Nutrient {
 	private String value;
 	
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
+//	@OneToMany
 	@JoinColumn(name="nutrient_id",
 	referencedColumnName="id")
 	private ArrayList<Measure> measures;
@@ -100,7 +102,7 @@ public class Nutrient {
 
 
 	public int getId() {
-		return nutrientId;
+		return this.id;
 	}
 
 

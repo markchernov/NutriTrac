@@ -38,13 +38,8 @@ public class NutriController {
 		@ResponseBody
 		@RequestMapping(path="foodObj", method = RequestMethod.POST)
 		public boolean addNewFoodObj(@RequestBody Food foodJson) {
-//			for (Nutrient nut : foodJson.getNutrients()) {
-//				nut.setFood(foodJson);
-//				for(Measure meas : nut.getMeasures()) {
-//					meas.setFood(foodJson);
-//				}
-//			}
 			System.out.println(foodJson);
+		
 			System.out.println("Food Number : " + foodJson.getNdbno() +
 							"\n Food Name : " + foodJson.getName() +
 							"\n Food Nutrient 2 : " + foodJson.getNutrients().get(2) +
@@ -61,9 +56,21 @@ public class NutriController {
 			System.out.println("nutrient food id " + foodJson.getNutrients().get(2).getFood());
 			System.out.println("measures food id " + foodJson.getNutrients().get(2).getMeasures().get(0).getFood());
 			System.out.println("nutrient nutrient id " + foodJson.getNutrients().get(2).getMeasures().get(0).getNutrient());
+			System.out.println("nutrient id PK " + foodJson.getNutrients().get(2).getId());
 			System.out.println("xxxxxxxxxxxxx");
+		    Food ret = NutDAO.createFood(foodJson);
+//			for (Nutrient nut : foodJson.getNutrients()) {
+//				nut.setFood(foodJson);
+//				for(Measure meas : nut.getMeasures()) {
+//					meas.setFood(foodJson);
+//				}
+//			}
+			System.out.println(ret);
 			//TODO fix return to return true if object was successfully added to database...
-			return true;
+			if(ret != null) {
+				return true;
+			} else return false;
+//			return true;
 		}
 
 }

@@ -34,7 +34,7 @@ public class Food {
 	@JoinColumn(name="ndbno", referencedColumnName="ndbno")
 	private ArrayList<Nutrient> nutrients;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.REMOVE)
 	@JoinColumn(name="ndbno_id", referencedColumnName="ndbno")
 	private ArrayList<Measure> measures;
 
@@ -95,7 +95,8 @@ public class Food {
 
 	@Override
 	public String toString() {
-		return "Food [ndbno=" + ndbno + ", name=" + name + "]";
+		//return "Food [ndbno=" + ndbno + ", name=" + name + ", measures="+measures.size()+", nutrients="+nutrients.size()+"]";
+		return "Food [ndbno=" + ndbno + ", name=" + name +"]";
 	}
 	
 	

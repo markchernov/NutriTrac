@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `nutrient` (
   `grp` VARCHAR(45) NULL,
   `unit` VARCHAR(45) NULL,
   `value` VARCHAR(45) NULL,
-  `ndbno` INT NULL,
+  `ndbno` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `FK_nutrient_food`
     FOREIGN KEY (`ndbno`)
@@ -92,6 +92,10 @@ CREATE INDEX `FK_measures_nutrientId_idx` ON `measure` (`nutrient_id` ASC);
 
 SHOW WARNINGS;
 
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 -- -----------------------------------------------------
 -- Data for table `food`
 -- -----------------------------------------------------
@@ -107,8 +111,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `foodtracdb`;
-INSERT INTO `nutrient` (`id`, `nutrient_id`, `name`, `grp`, `unit`, `value`, `ndbno`) VALUES (1, 255, 'Water', 'Proximates', 'g', '28.71', 1);
-INSERT INTO `nutrient` (`id`, `nutrient_id`, `name`, `grp`, `unit`, `value`, `ndbno`) VALUES (2, 208, 'Energy', 'Proximates', 'kcal', '315', 2);
+INSERT INTO `nutrient` (`id`, `nutrient_id`, `name`, `grp`, `unit`, `value`, `ndbno`) VALUES (1, 255, 'Water', 'Proximates', 'g', '28.71', 01225);
+INSERT INTO `nutrient` (`id`, `nutrient_id`, `name`, `grp`, `unit`, `value`, `ndbno`) VALUES (2, 208, 'Energy', 'Proximates', 'kcal', '315', 01225);
 
 COMMIT;
 
@@ -118,12 +122,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `foodtracdb`;
-INSERT INTO `measure` (`id`, `label`, `eqv`, `qty`, `value`, `ndbno_id`, `nutrient_id`) VALUES (1, 'tbsp', 19.0, 1.0, '5.45', 1, 1);
-INSERT INTO `measure` (`id`, `label`, `eqv`, `qty`, `value`, `ndbno_id`, `nutrient_id`) VALUES (2, 'tbsp', 19.0, 1.0, '60', 1, 2);
+INSERT INTO `measure` (`id`, `label`, `eqv`, `qty`, `value`, `ndbno_id`, `nutrient_id`) VALUES (1, 'tbsp', 19.0, 1.0, '5.45', 01225, 1);
+INSERT INTO `measure` (`id`, `label`, `eqv`, `qty`, `value`, `ndbno_id`, `nutrient_id`) VALUES (2, 'tbsp', 19.0, 1.0, '60', 01225, 2);
 
 COMMIT;
 
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

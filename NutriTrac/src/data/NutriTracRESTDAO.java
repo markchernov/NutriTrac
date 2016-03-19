@@ -9,7 +9,6 @@ import entities.Food;
 import entities.Measure;
 import entities.Nutrient;
 
-
 @Transactional
 
 public class NutriTracRESTDAO {
@@ -17,16 +16,9 @@ public class NutriTracRESTDAO {
 	@PersistenceContext
 
 	private EntityManager em;
-	
-	
-	
-	
-	
-	
-	
-	
+
 	// ------------ FOOD
-	
+
 	public Food getFoodById(String ndbnoParameter) {
 
 		int ndbno = Integer.parseInt(ndbnoParameter.trim());
@@ -38,59 +30,60 @@ public class NutriTracRESTDAO {
 		return food;
 
 	}
-	
-	public ArrayList<Food> getAllFoodsByName (String nameParameter) {
+
+	public ArrayList<Food> getAllFoodsByName(String nameParameter) {
 
 		String name = nameParameter.trim();
 
-		ArrayList<Food> getAllFoodsByName = (ArrayList<Food>) em.createNamedQuery("Food.getAllFoodsByName").setParameter("name", name).getResultList();
+		ArrayList<Food> getAllFoodsByName = (ArrayList<Food>) em.createNamedQuery("Food.getAllFoodsByName")
+				.setParameter("name", name).getResultList();
 
 		return getAllFoodsByName;
 
 	}
-	
-	
-	
 
-	public  ArrayList<Food> getAllFoods() {
+	public ArrayList<Food> getAllFoods() {
 
 		ArrayList<Food> allFoods = (ArrayList<Food>) em.createNamedQuery("Food.getAllFoods").getResultList();
 
 		return allFoods;
 
 	}
-	
-	
-	
+
 	public Food createFood(Food f) {
-		
-	
-	
-		
+
+		System.out.println(f);
+
 		Food fu = em.find(Food.class, f.getNdbno());
- 
+
 		if (fu == null) {
-		
-		em.merge(f);
+//			for (Nutrient nut : f.getNutrients()) {
+//				em.persist(nut);
+//				for (Measure meas : nut.getMeasures()) {
+//					em.persist(meas);
+//				}
+//			}
+			em.merge(f);
 
-		em.persist(f);
+			em.persist(f);
+			Food returned = em.find(Food.class, f.getNdbno());
+			// Food persistedFood = (Food)
+			// em.createNamedQuery("Food.getLastFoodById").getSingleResult();
 
-		Food persistedFood = (Food) em.createNamedQuery("Food.getLastFoodById").getSingleResult();
+			return returned;
 
-		return persistedFood;
-
-		
 		}
-		
-		else return null;
-				
+
+		else
+			return null;
+
 	}
-	
+
 	public Food updateFood(Food f) {
 
 		em.merge(f);
 
-		//em.persist(e);
+		// em.persist(e);
 
 		int ndbno = f.getNdbno();
 
@@ -99,22 +92,9 @@ public class NutriTracRESTDAO {
 		return persistedFood;
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//  ---------------------------------  NUTRIENT
-	
-	
-	
+
+	// --------------------------------- NUTRIENT
+
 	public Nutrient getNutrientById(String idParameter) {
 
 		int id = Integer.parseInt(idParameter.trim());
@@ -126,19 +106,18 @@ public class NutriTracRESTDAO {
 		return nutrient;
 
 	}
-	
-	
-   public  ArrayList<Nutrient> getAllNutrients() {
 
-	   ArrayList<Nutrient> allNutrients = (ArrayList<Nutrient>) em.createNamedQuery("Nutrient.getAllNutrients").getResultList();
+	public ArrayList<Nutrient> getAllNutrients() {
 
-	return allNutrients;
+		ArrayList<Nutrient> allNutrients = (ArrayList<Nutrient>) em.createNamedQuery("Nutrient.getAllNutrients")
+				.getResultList();
 
-}
-   
-   
-   //------------------------------------ MEASURE
-   
+		return allNutrients;
+
+	}
+
+	// ------------------------------------ MEASURE
+
 	public Measure getMeasureById(String measureIdParameter) {
 
 		int measureId = Integer.parseInt(measureIdParameter.trim());
@@ -150,12 +129,13 @@ public class NutriTracRESTDAO {
 		return measure;
 
 	}
-   
-   public  ArrayList<Measure> getAllMeasures() {
 
-	   ArrayList<Measure> allMeasures = (ArrayList<Measure>) em.createNamedQuery("Measure.getAllMeasures").getResultList();
+	public ArrayList<Measure> getAllMeasures() {
 
-	return allMeasures;
+		ArrayList<Measure> allMeasures = (ArrayList<Measure>) em.createNamedQuery("Measure.getAllMeasures")
+				.getResultList();
 
-}	
+		return allMeasures;
+
+	}
 }
