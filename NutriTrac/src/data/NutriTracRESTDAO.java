@@ -20,7 +20,7 @@ public class NutriTracRESTDAO {
 	// ------------ FOOD ----------------------------------------------------
 	// ----GET-----
 
-	public Food getFoodById(int ndbnoParameter) {
+	public Food getFoodById(int ndbnoParameter) {             
 
 		Food food = em.find(Food.class, ndbnoParameter);
 

@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @NamedQueries({ @NamedQuery(name = "Food.getAllFoods", query = "select f from Food f"),
 	@NamedQuery(name = "Food.getAllFoodsByName", query = "select f from Food f where f.name = :name"),
-	@NamedQuery(name = "Food.getAllFoodsByNutrientName", query = "select f from Food f JOIN Nutrient n where n.name = :nutrient"),
+	@NamedQuery(name = "Food.getAllFoodsByNutrientName", query = "select f from Food f JOIN Nutrient n ON (f.ndbno = n.food) WHERE n.name = :nutrient"),
 	@NamedQuery(name = "Food.getLastFoodById", query = "select f from Food f where f.ndbno = (SELECT MAX(f2.ndbno)from Food f2)")
 })
 
