@@ -47,9 +47,9 @@ public class NutriTracRESTDAO {
 
 	}
 
-	public ArrayList<Food> getAllFoodsByNuttrient(String nutrient) {
+	public ArrayList<Food> getAllFoodsWithNutrientName(String nutrientName) {
 
-		ArrayList<Food> allFoodsByNutrientName = new ArrayList<Food>(em.createNamedQuery("Food.getAllFoodsByNutrientName").setParameter("nutrient", nutrient).getResultList());
+		ArrayList<Food> allFoodsByNutrientName = new ArrayList<Food>(em.createNamedQuery("Food.getAllFoodsWithNutrientName").setParameter("nutrient", nutrientName).getResultList());
 
 		return allFoodsByNutrientName;
 
@@ -118,16 +118,23 @@ public class NutriTracRESTDAO {
 
 	}
 
-	public ArrayList<Nutrient> getNutrientByNutrientGroupId(int GroupIdParameter) {
+	public ArrayList<Nutrient> getAllNutrientsByGroupId(int groupIdParameter) {
 		
-		ArrayList<Nutrient> allNutrientsByNutrientGroupId = new ArrayList<Nutrient>(em.createNamedQuery("Nutrient.getAllNutrientsByName")
+		ArrayList<Nutrient> allNutrientsByNutrientGroupId = new ArrayList<Nutrient>(em.createNamedQuery("Nutrient.getAllNutrientsByGroupId").setParameter("nutrientId", groupIdParameter)
 				.getResultList());
 
 		return allNutrientsByNutrientGroupId;
 
 	}
 	
-	
+    public ArrayList<Nutrient> getAllNutrientsByNutrientName(String nameParameter) {
+		
+		ArrayList<Nutrient> allNutrientsByNutrientName = new ArrayList<Nutrient>(em.createNamedQuery("Nutrient.getAllNutrientsByName").setParameter("name", nameParameter)
+				.getResultList());
+
+		return allNutrientsByNutrientName;
+
+	}
 	
 	
 	
@@ -144,18 +151,24 @@ public class NutriTracRESTDAO {
 
 	// ----GET-----
 
-	public Measure getMeasureById(String measureIdParameter) {
+	public Measure getMeasureById(int measureIdParameter) {
 
-		int measureId = Integer.parseInt(measureIdParameter.trim());
+		Measure myMeasure = em.find(Measure.class,measureIdParameter);
 
-		Measure measure = em.find(Measure.class, measureId);
-
-		System.out.println(measure);
-
-		return measure;
+		return myMeasure;
 
 	}
 
+	public ArrayList<Measure> getAllMeasuresByLabel(String labelParameter) {
+
+		ArrayList<Measure> allMeasuresByLabel = new ArrayList<Measure>(em.createNamedQuery("Measure.getAllMeasuresByLabel").setParameter("label", labelParameter)
+				.getResultList());
+
+		return allMeasuresByLabel;
+
+	}
+	
+	
 	public ArrayList<Measure> getAllMeasures() {
 
 		ArrayList<Measure> allMeasures = new ArrayList<Measure>(em.createNamedQuery("Measure.getAllMeasures")
@@ -165,7 +178,7 @@ public class NutriTracRESTDAO {
 
 	}
 
-	// ----GET-----
-	// ----GET-----
-	// ----GET-----
+	// ----POST-----
+	// ----PUT-----
+	// ----DELETE-----
 }

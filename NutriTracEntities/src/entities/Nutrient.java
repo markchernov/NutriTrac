@@ -19,6 +19,7 @@ import javax.persistence.Table;
 
 @NamedQueries({ @NamedQuery(name = "Nutrient.getAllNutrients", query = "select n from Nutrient n"),
 	@NamedQuery(name = "Nutrient.getAllNutrientsByName", query = "select n from Nutrient n where n.name = :name"),
+	@NamedQuery(name = "Nutrient.getAllNutrientsByGroupId", query = "select n from Nutrient n where n.nutrientId = :nutrientId"),
 	@NamedQuery(name = "Nutrient.getLastNutrientById", query = "select n from Nutrient n where n.id = (SELECT MAX(n2.id)from Nutrient n2)")})
 
 public class Nutrient {
