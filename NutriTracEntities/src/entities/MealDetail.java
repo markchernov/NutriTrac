@@ -19,16 +19,7 @@ public class MealDetail {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idmeal_details")
 	private Integer mealDetailId;
-	
-	@Column(name="meal_id")
-	private Integer mealId;
-	
-	@Column(name="food_id")
-	private Integer foodId;
-	
-	@Column(name="measure_id")
-	private Integer measureId;
-	
+
 	@ManyToOne
 	@JoinColumn(name ="food_id", referencedColumnName="ndbno")
 	private Food food; 
@@ -51,18 +42,6 @@ public class MealDetail {
 		return mealDetailId;
 	}
 
-	public Integer getMealId() {
-		return mealId;
-	}
-
-	public Integer getFoodId() {
-		return foodId;
-	}
-
-	public Integer getMeasureId() {
-		return measureId;
-	}
-
 	public Food getFood() {
 		return food;
 	}
@@ -79,17 +58,6 @@ public class MealDetail {
 		this.mealDetailId = mealDetailId;
 	}
 
-	public void setMealId(Integer mealId) {
-		this.mealId = mealId;
-	}
-
-	public void setFoodId(Integer foodId) {
-		this.foodId = foodId;
-	}
-
-	public void setMeasureId(Integer measureId) {
-		this.measureId = measureId;
-	}
 
 	public void setFood(Food food) {
 		this.food = food;
