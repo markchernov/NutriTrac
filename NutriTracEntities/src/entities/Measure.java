@@ -44,7 +44,7 @@ public class Measure {
 
 	
 	
-	public int getMeasureId() {
+	public Integer getMeasureId() {
 		return measureId;
 	}
 
@@ -71,7 +71,7 @@ public class Measure {
 
 
 
-	public int getId() {
+	public Integer getId() {
 		return measureId;
 	}
 

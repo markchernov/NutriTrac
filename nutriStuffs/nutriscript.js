@@ -3,11 +3,41 @@ onload = function () {
     init();
 };
 
+var scrapeTimer = {
+    start: function () {
+        this.interval = setInterval(getUSDA, 500);
+    },
+    clear: function () {
+        clearInterval(this.interval);
+        console.log("XXXXclear interval called and stuffXXXX");
+    }
+};
+
+var ndbno = 1001;
+
 function init() {
     var btn1 = document.getElementById('btn1');
     document.getElementById('btn2').addEventListener('click', ping);
     btn1.addEventListener('click', getFood);
+    document.getElementById('btn3').addEventListener('click', setTimer);
 };
+
+var setTimer = function (event) {
+    event.preventDefault();
+    scrapeTimer.start();
+}
+
+var getUSDA = function() {
+    var apiKey1 = 'luHpcYzCW0AElRtcgcBmVrWyfRqYQQobhJuycS70';
+    var url1 = 'http://api.nal.usda.gov/ndb/reports/?ndbno=0';
+    var url2 = '&type=b&format=JSON&api_key=';
+    
+    console.log("IN GET USDA : " + ndbno);
+    
+    for (ndbno; ndbno < 1005; ndbno++) {
+        xhrMethod('GET', displayResponse, url1 + ndbno + url2, apiKey1 );
+    }
+}
 
 var getFood = function (event) {
     event.preventDefault();
@@ -38,7 +68,7 @@ var xhrMethod = function (method, callback, url, apiKey, obj) {
             } else if (obj) {
                 var responseString = xhr.responseText;
                 callback(responseString);
-            }else {
+            } else {
                 var responseString = xhr.responseText;
                 callback(responseString);
             }
@@ -46,10 +76,10 @@ var xhrMethod = function (method, callback, url, apiKey, obj) {
             console.log(xhr.status);
         }
     }
-    if(obj) {
+    if (obj) {
         xhr.send(JSON.stringify(obj));
-    } else{
-    xhr.send();        
+    } else {
+        xhr.send();
     }
 }
 
@@ -85,7 +115,7 @@ function nutrient(group, name, nutrient_id, unit, value, measures, food) {
     this.value = value;
     this.measures = measures;
     this.food = food;
-    
+
 }
 
 function measure(eqv, label, qty, value, nutrient, food) {
@@ -99,7 +129,7 @@ function measure(eqv, label, qty, value, nutrient, food) {
 
 var ping = function (event) {
     event.preventDefault();
-//    xhrMethod('GET', displayPing, 'http://52.89.185.185:8080/NutriTrac/rest/ping');
+    //    xhrMethod('GET', displayPing, 'http://52.89.185.185:8080/NutriTrac/rest/ping');
     xhrMethod('GET', displayPing, 'http://localhost:8080/NutriTrac/rest/ping');
 
 }
