@@ -30,14 +30,14 @@ public class FoodTest {
 	   public void testFood() {
 
 		  
-          Food food = new Food();
+          Food food = new Food();        // ARRANGE
 		
 	      assertNotNull(food);             // test object 
 	      
 	      assertEquals(food.getNdbno(),0); // test initial empty id 
 	      
-	      food.setNdbno(1);
-	      assertEquals(food.getNdbno(),1);  // test set for id 
+	      food.setNdbno(1);              // ACT
+	      assertEquals(food.getNdbno(),1);  // ASSERT           test set for id 
 	
 	      
 	      

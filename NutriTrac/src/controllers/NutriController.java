@@ -77,6 +77,18 @@ public class NutriController {
 		return allFoodsWithNutrientName;
 	}
 
+	@RequestMapping(path = "tenhighestfoods", method = RequestMethod.GET)
+
+	public ArrayList<Food> getTenHighestEnergyCounts() {
+
+		ArrayList<Food> tenHighestEnergyCounts = NutDAO.getTenHighestEnergyCounts();
+
+		return tenHighestEnergyCounts;
+	}
+	
+	
+	
+	
 	// ----POST ----
 
 	@ResponseBody
