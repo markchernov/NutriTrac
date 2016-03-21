@@ -21,13 +21,13 @@ public class Measure {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int measureId;
+	private Integer measureId;
 	
 	@Column(name = "ndbno_id")
-	private int food;
+	private Integer food;
 	
 	@Column(name = "nutrient_id")
-	private int nutrient;
+	private Integer nutrient;
 	
 	
 	private String label;
@@ -44,14 +44,14 @@ public class Measure {
 
 	
 	
-	public int getMeasureId() {
+	public Integer getMeasureId() {
 		return measureId;
 	}
 
 
 
 
-	public void setMeasureId(int measureId) {
+	public void setMeasureId(Integer measureId) {
 		this.measureId = measureId;
 	}
 
@@ -64,14 +64,14 @@ public class Measure {
 
 
 
-	public void setNutrient(int nutrient) {
+	public void setNutrient(Integer nutrient) {
 		this.nutrient = nutrient;
 	}
 
 
 
 
-	public int getId() {
+	public Integer getId() {
 		return measureId;
 	}
 
