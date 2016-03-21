@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -30,6 +32,81 @@ public class UserMeal {
 
 	@Column(name ="meal_date")
 	private Date mealDate;
+	
 	@Column(name ="meal_category")
-	private String mealCategory;
+	private Type mealCategory;
+	
+	@ManyToOne
+	@JoinColumn(name ="user_email", referencedColumnName="email")
+	private User user; 
+	
+	@ManyToOne
+	@JoinColumn(name ="meal_id", referencedColumnName="id")
+	private Meal meal; 
+	
+	
+	public UserMeal() {}
+	
+	public enum Type {
+		BREAKFAST, LUNCH, DINNER, SNACK
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public Integer getMealId() {
+		return mealId;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public Date getMealDate() {
+		return mealDate;
+	}
+
+	public Type getMealCategory() {
+		return mealCategory;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public Meal getMeal() {
+		return meal;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setMealId(Integer mealId) {
+		this.mealId = mealId;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setMealDate(Date mealDate) {
+		this.mealDate = mealDate;
+	}
+
+	public void setMealCategory(Type mealCategory) {
+		this.mealCategory = mealCategory;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setMeal(Meal meal) {
+		this.meal = meal;
+	}
+	
+	
+	
 }

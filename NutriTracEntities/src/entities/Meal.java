@@ -20,8 +20,8 @@ import javax.persistence.Table;
 
 @NamedQueries({
 
-		@NamedQuery(name = "Meal.getMealsByCategory", query = "select m from Meal m where m.category = :category"),
-		@NamedQuery(name = "Meal.getLastMealById", query = "select m from Meal m where m.mealid = (SELECT MAX(m2.mealid)from Meal m2)"),
+		@NamedQuery(name = "Meal.getMealsByCategory", query = "select m from Meal m where m.name = :name"),
+		@NamedQuery(name = "Meal.getLastMealById", query = "select m from Meal m where m.mealId = (SELECT MAX(m2.mealId)from Meal m2)"),
 		@NamedQuery(name = "Meal.getAllMeals", query = "select e from Meal e"),
 		@NamedQuery(name = "Meal.getAllCategories", query = "select distinct m.name from Meal m") })
 
@@ -29,35 +29,53 @@ public class Meal {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "mealid")
-	private int mealid;
+	@Column(name = "id")
+	private int mealId;
 
 	@Column(name = "name")
 	private String name;
-	private String description;
-	private double amount;
-	private Type category;
-	private Date mealdate;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "mealid", referencedColumnName = "mealid")
-	private ArrayList<Food> foods;
+	@OneToMany(mappedBy = "meal", cascade = CascadeType.ALL)
+	private ArrayList<UserMeal> userMeals;
+
+	@OneToMany(mappedBy = "meal", cascade = CascadeType.ALL)
+	private ArrayList<MealDetail> mealDetails;
 
 	public Meal() {
 	}
 
-	public Meal(int mealid, String name, String description, double amount, Type category, Date mealdate) {
-		super();
-		this.mealid = mealid;
+	public int getMealId() {
+		return mealId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public ArrayList<UserMeal> getUserMeals() {
+		return userMeals;
+	}
+
+	public ArrayList<MealDetail> getMealDetails() {
+		return mealDetails;
+	}
+
+	public void setMealId(int mealId) {
+		this.mealId = mealId;
+	}
+
+	public void setName(String name) {
 		this.name = name;
-		this.description = description;
-		this.amount = amount;
-		this.category = category;
-		this.mealdate = mealdate;
 	}
 
-	public enum Type {
-		BREAKFAST, LUNCH, DINNER, SNACK
+	public void setUserMeals(ArrayList<UserMeal> userMeals) {
+		this.userMeals = userMeals;
 	}
 
+	public void setMealDetails(ArrayList<MealDetail> mealDetails) {
+		this.mealDetails = mealDetails;
+	}
+
+	
+	
 }
