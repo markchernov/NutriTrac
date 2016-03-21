@@ -15,6 +15,11 @@ var scrapeTimer = {
 
 var ndbno = 1001;
 
+var place = 0;
+
+var apiKeys = ['luHpcYzCW0AElRtcgcBmVrWyfRqYQQobhJuycS70', '1fC1hY2ocZ1FrXMxEqZIUT2jX1wQ0id3h4Ud53Ym', '6doxBgv8PZAL6ZVJF4mlKD961oip7MOFjztQOvT8', 'cU3mRKA1kuypq3WNSTf00lCzqt0vDwrRcNGapLD2', 'Jpn8M076GP6mcmyyb3C5mcrXrgICarW3SnlLRTcr','1nfZZhhVYQSw0fgc5XGxdxvb2GQ1oKClMMIvkb1t', 'pDsuPH3xUxfu0ES2DWZucsqrrinbgTxkPTnMonPa', 'CgdyH7DvLfs684FTowzbkzycKAokV78m0UUgrDl5']
+
+
 function init() {
     var btn1 = document.getElementById('btn1');
     document.getElementById('btn2').addEventListener('click', ping);
@@ -28,14 +33,25 @@ var setTimer = function (event) {
 }
 
 var getUSDA = function() {
-    var apiKey1 = 'luHpcYzCW0AElRtcgcBmVrWyfRqYQQobhJuycS70';
-    var url1 = 'http://api.nal.usda.gov/ndb/reports/?ndbno=0';
+    
+    if(place === 7) {
+        place = 0;
+    } else {
+        place += 1;
+    }
+    apiKey = apiKeys[place];
+    
+    if(ndbno < 10000) {
+        var url1 = 'http://api.nal.usda.gov/ndb/reports/?ndbno=0';
+    } else {
+        var url1 = 'http://api.nal.usda.gov/ndb/reports/?ndbno=';
+    }
     var url2 = '&type=b&format=JSON&api_key=';
     
-    console.log("IN GET USDA : " + ndbno);
-    
-    for (ndbno; ndbno < 1005; ndbno++) {
-        xhrMethod('GET', displayResponse, url1 + ndbno + url2, apiKey1 );
+    xhrMethod('GET', displayResponse, url1 + ndbno + url2, apiKey );
+    ndbno ++;
+    if(ndbno > 36633) {
+        scrapeTimer.clear();
     }
 }
 
