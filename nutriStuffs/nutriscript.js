@@ -58,7 +58,7 @@ var getUSDA = function() {
 var getFood = function (event) {
     event.preventDefault();
     console.log("button clicked ok guys");
-    xhrMethod('GET', displayResponse, 'http://api.nal.usda.gov/ndb/reports/?ndbno=19097&type=b&format=JSON&api_key=', 'luHpcYzCW0AElRtcgcBmVrWyfRqYQQobhJuycS70');
+    xhrMethod('GET', displayResponse, 'http://api.nal.usda.gov/ndb/reports/?ndbno=19098&type=b&format=JSON&api_key=', 'luHpcYzCW0AElRtcgcBmVrWyfRqYQQobhJuycS70');
 };
 
 var xhrMethod = function (method, callback, url, apiKey, obj) {
