@@ -21,20 +21,20 @@ public class Measure {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int measureId;
+	private Integer measureId;
 	
 	@Column(name = "ndbno_id")
-	private int food;
+	private Integer food;
 	
 	@Column(name = "nutrient_id")
-	private int nutrient;
+	private Integer nutrient;
 	
 	
 	private String label;
 	
-	private double eqv;
+	private Double eqv;
 	
-	private double qty;
+	private Double qty;
 	
 	private String value;
 	
@@ -51,7 +51,7 @@ public class Measure {
 
 
 
-	public void setMeasureId(int measureId) {
+	public void setMeasureId(Integer measureId) {
 		this.measureId = measureId;
 	}
 
@@ -64,7 +64,7 @@ public class Measure {
 
 
 
-	public void setNutrient(int nutrient) {
+	public void setNutrient(Integer nutrient) {
 		this.nutrient = nutrient;
 	}
 
@@ -86,12 +86,12 @@ public class Measure {
 	}
 
 
-	public double getEqv() {
+	public Double getEqv() {
 		return eqv;
 	}
 
 
-	public double getQty() {
+	public Double getQty() {
 		return qty;
 	}
 
@@ -100,7 +100,7 @@ public class Measure {
 		return value;
 	}
 
-	public void setFood(int food) {
+	public void setFood(Integer food) {
 		this.food = food;
 	}
 
@@ -110,12 +110,12 @@ public class Measure {
 	}
 
 
-	public void setEqv(double eqv) {
+	public void setEqv(Double eqv) {
 		this.eqv = eqv;
 	}
 
 
-	public void setQty(double qty) {
+	public void setQty(Double qty) {
 		this.qty = qty;
 	}
 

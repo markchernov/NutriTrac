@@ -3,6 +3,8 @@ package data;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import entities.Food;
@@ -14,7 +16,7 @@ import entities.Nutrient;
 public class NutriTracRESTDAO {
 
 	@PersistenceContext
-
+    //@Autowired
 	private EntityManager em;
 
 	// ------------ FOOD ----------------------------------------------------
@@ -23,7 +25,7 @@ public class NutriTracRESTDAO {
 	public Food getFoodById(int ndbnoParameter) {             
 
 		Food food = em.find(Food.class, ndbnoParameter);
-
+		System.out.print(food);
 		return food;
 
 	}
@@ -57,7 +59,7 @@ public class NutriTracRESTDAO {
 	
 	public ArrayList<Food> getTenHighestEnergyCounts() {
 
-		ArrayList<Food> tenHighestEnergyCounts = new ArrayList<Food>(em.createNamedQuery("Food.getTenHighestEnergyCounts").getResultList());
+		ArrayList<Food> tenHighestEnergyCounts = new ArrayList<Food>(em.createNamedQuery("Food.getTenHighestEnergyCounts").setMaxResults(10).getResultList());
 
 		return tenHighestEnergyCounts;
 

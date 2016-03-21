@@ -20,7 +20,7 @@ import javax.persistence.Table;
 	@NamedQuery(name = "Food.getAllFoodsByName", query = "select f from Food f where f.name = :name"),
 	@NamedQuery(name = "Food.getAllFoodsWithNutrientName", query = "select f from Food f JOIN Nutrient n ON (f.ndbno = n.food) WHERE n.name = :nutrient"),
 	@NamedQuery(name = "Food.getLastFoodById", query = "select f from Food f where f.ndbno = (SELECT MAX(f2.ndbno)from Food f2)"),
-	@NamedQuery(name = "Food.getTenHighestEnergyCounts", query = "select f from Food f JOIN Nutrient n ON (f.ndbno = n.food) WHERE n.name = :energy")
+	@NamedQuery(name = "Food.getTenHighestEnergyCounts", query = "select f from Food f JOIN Nutrient n ON (f.ndbno = n.food) WHERE n.name = :energy order by n.value desc")
 })
 
 
@@ -28,7 +28,7 @@ import javax.persistence.Table;
 public class Food {
 
 	@Id
-	private int ndbno;
+	private Integer ndbno;
     
     private String name;
 
@@ -47,7 +47,7 @@ public class Food {
 
 
 
-	public int getNdbno() {
+	public Integer getNdbno() {
 		return ndbno;
 	}
 
@@ -71,7 +71,7 @@ public class Food {
 
 
 
-	public void setNdbno(int ndbno) {
+	public void setNdbno(Integer ndbno) {
 		this.ndbno = ndbno;
 	}
 

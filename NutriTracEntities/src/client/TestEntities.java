@@ -141,7 +141,7 @@ public class TestEntities {
 	
 	public static ArrayList<Food> getAllFoodsByNuttrient(String nutrient) {
 
-		ArrayList<Food> allFoodsByNutrientName = new ArrayList<Food>(em.createNamedQuery("Food.getAllFoodsByNutrientName")
+		ArrayList<Food> allFoodsByNutrientName = new ArrayList<Food>(em.createNamedQuery("Food.getAllFoodsWithNutrientName")
 				.setParameter("nutrient", nutrient).getResultList());
 
 		return allFoodsByNutrientName;
