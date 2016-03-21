@@ -6,18 +6,31 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import entities.Food;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"/rest-servlet.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations="./WebContent/WEB-INF/rest-servlet.xml")
 
-public class DaoTest {
+
+public class DaoTest implements ApplicationContextAware{
 	
 	@Autowired
 	private NutriTracRESTDAO NutDAO;
+	
+	@Autowired
+	private ApplicationContext context;
 
 	/*
 	 * EntityManagerFactory emf =
@@ -63,6 +76,12 @@ public class DaoTest {
 
 		// assertArrayEquals(expectedFoods.toArray() ,tenFoods.toArray());
 
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

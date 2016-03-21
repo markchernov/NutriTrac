@@ -59,7 +59,7 @@ public class NutriTracRESTDAO {
 	
 	public ArrayList<Food> getTenHighestEnergyCounts() {
 
-		ArrayList<Food> tenHighestEnergyCounts = new ArrayList<Food>(em.createNamedQuery("Food.getTenHighestEnergyCounts").setMaxResults(10).getResultList());
+		ArrayList<Food> tenHighestEnergyCounts = new ArrayList<Food>(em.createNamedQuery("Food.getTenHighestEnergyCounts").setMaxResults(10).setParameter("energy", "energy").getResultList());
 
 		return tenHighestEnergyCounts;
 
