@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import data.NutriTracRESTDAO;
 import entities.Food;
+import entities.Meal;
 import entities.Measure;
 import entities.Nutrient;
 import entities.User;
@@ -265,9 +266,31 @@ public class NutriController {
 	
 	
 	
+	// --------------- MEAL ----------------------------------
+
+			// ----GET ----
 	
+	@RequestMapping(path = "meals/{char}", method = RequestMethod.GET)
+
+	public ArrayList<Meal> getAllMealsByChar(@PathVariable("char") String character) {
+
+		//char firstChar = character.charAt(0);
+		
+		
+		
+		ArrayList<Meal> allMealsByChar = NutDAO.getAllMealsByChar(character);
+
+		return allMealsByChar ;
+	}
 	
+	    // ---------POST ---------
 	
-	
+	@RequestMapping(path = "createmeal", method = RequestMethod.POST)
+    public Meal createMeal(@RequestBody Meal meal) {
+		
+		Meal createdMeal = NutDAO.createMeal(meal);
+
+		return createdMeal;
+	}
 	
 } // end of controller

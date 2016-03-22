@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import entities.Food;
+import entities.Meal;
 import entities.Measure;
 import entities.Nutrient;
 import entities.User;
@@ -45,19 +46,13 @@ public class NutriTracRESTDAO {
 
 	public ArrayList<Food> getAllFoodsByChar(String character) {
 
-
-		ArrayList<Food> getAllFoodsByChar = new ArrayList<Food>(
-				em.createNamedQuery("Food.getAllFoodsByChar").setParameter("character", character + "%").getResultList());
+		ArrayList<Food> getAllFoodsByChar = new ArrayList<Food>(em.createNamedQuery("Food.getAllFoodsByChar")
+				.setParameter("character", "%" + character + "%").getResultList());
 
 		return getAllFoodsByChar;
 
 	}
-	
-	
-	
-	
-	
-	
+
 	public ArrayList<Food> getAllFoods() {
 
 		ArrayList<Food> allFoods = new ArrayList<Food>(em.createNamedQuery("Food.getAllFoods").getResultList());
@@ -272,8 +267,8 @@ public class NutriTracRESTDAO {
 
 	// ------------------------------------ USER MEAL
 
-		// ----GET-----
-	
+	// ----GET-----
+
 	public UserMeal getUserMealById(int id) {
 
 		UserMeal myUserMeal = em.find(UserMeal.class, id);
@@ -281,5 +276,31 @@ public class NutriTracRESTDAO {
 		return myUserMeal;
 
 	}
-	
+
+	// ------------ MEAL----------------------------------------------------
+	// ----GET-----
+
+	public ArrayList<Meal> getAllMealsByChar(String character) {
+
+		ArrayList<Meal> getAllMealsByChar = new ArrayList<Meal>(em.createNamedQuery("Meal.getAllMealsByChar")
+				.setParameter("character", "%" + character + "%").getResultList());
+
+		return getAllMealsByChar;
+
+	}
+
+	// ----POST-----
+
+	public Meal createMeal(Meal m) {
+
+		em.merge(m);
+
+		em.persist(m);
+
+		Meal persistedMeal = (Meal) em.createNamedQuery("Meal.getLastMealById").getSingleResult();
+
+		return persistedMeal;
+
+	}
+
 }// end of DAO
