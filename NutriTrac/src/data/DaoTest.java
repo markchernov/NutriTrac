@@ -53,7 +53,7 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 	@Test
 	public void testGetAllFoodsByChar() {
 
-		ArrayList<Food> myFoods = NutDAO.getAllFoodsByChar("burger");
+		ArrayList<Food> myFoods = NutDAO.getAllFoodsByChar("mushroom");
 
 		for (Food food : myFoods) {
 
@@ -86,8 +86,8 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 	
 	 @Test public void testCreateUser() {
 	 
-	 User testUser = new User(); testUser.setEmail("ussss@gmail.com");
-	 testUser.setPassword("12345"); testUser.setFirstname("Usss");
+	 User testUser = new User(); testUser.setEmail("yy@gmail.com");
+	 testUser.setPassword("12345"); testUser.setFirstname("YY");
 	 testUser.setLastname("M"); testUser.setBirthdate(new Date());
 	 testUser.setSex("F");
 	 testUser.setWeight(150);
@@ -99,7 +99,7 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 	 
 	 assertNotNull(createdUser); // ASSERT
 	  
-	 assertEquals(createdUser.getEmail(), "ussss@gmail.com"); // ASSERT
+	 assertEquals(createdUser.getEmail(), "ss@gmail.com"); // ASSERT
 	  
 	  
 	 

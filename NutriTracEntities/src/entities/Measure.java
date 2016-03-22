@@ -43,9 +43,9 @@ public class Measure {
 	private String value;
 	
 	
-	@OneToMany(mappedBy = "measure", cascade = CascadeType.ALL)
+	/*@OneToMany(mappedBy = "measure", cascade = CascadeType.ALL)
 	private ArrayList<MealDetail> mealDetails;
-	
+	*/
 	
 	
 	public Measure () {}
@@ -53,7 +53,7 @@ public class Measure {
 
 	
 	
-	public ArrayList<MealDetail> getMealDetails() {
+/*	public ArrayList<MealDetail> getMealDetails() {
 		return mealDetails;
 	}
 
@@ -62,7 +62,7 @@ public class Measure {
 
 	public void setMealDetails(ArrayList<MealDetail> mealDetails) {
 		this.mealDetails = mealDetails;
-	}
+	}*/
 
 
 
