@@ -15,94 +15,78 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "food")
 
-
 @NamedQueries({ @NamedQuery(name = "Food.getAllFoods", query = "select f from Food f"),
-	@NamedQuery(name = "Food.getAllFoodsByName", query = "select f from Food f where f.name = :name"),
-	@NamedQuery(name = "Food.getAllFoodsWithNutrientName", query = "select f from Food f JOIN Nutrient n ON (f.ndbno = n.food) WHERE n.name = :nutrient"),
-	@NamedQuery(name = "Food.getLastFoodById", query = "select f from Food f where f.ndbno = (SELECT MAX(f2.ndbno)from Food f2)"),
-	@NamedQuery(name = "Food.getTenHighestEnergyCounts", query = "select f from Food f JOIN Nutrient n ON (f.ndbno = n.food) WHERE n.name = :energy order by n.value desc")
-})
-
-
+		@NamedQuery(name = "Food.getAllFoodsByName", query = "select f from Food f where f.name = :name"),
+		@NamedQuery(name = "Food.getAllFoodsWithNutrientName", query = "select f from Food f JOIN Nutrient n ON (f.ndbno = n.food) WHERE n.name = :nutrient"),
+		@NamedQuery(name = "Food.getLastFoodById", query = "select f from Food f where f.ndbno = (SELECT MAX(f2.ndbno)from Food f2)"),
+		@NamedQuery(name = "Food.getTenHighestEnergyCounts", query = "select f from Food f JOIN Nutrient n ON (f.ndbno = n.food) WHERE n.name = :energy order by n.value desc") })
 
 public class Food {
 
 	@Id
 	private Integer ndbno;
-    
-    private String name;
+
+	private String name;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="ndbno", referencedColumnName="ndbno")
+	@JoinColumn(name = "ndbno", referencedColumnName = "ndbno")
 	private ArrayList<Nutrient> nutrients;
 
 	@OneToMany(cascade = CascadeType.REMOVE)
-	@JoinColumn(name="ndbno_id", referencedColumnName="ndbno")
+	@JoinColumn(name = "ndbno_id", referencedColumnName = "ndbno")
 	private ArrayList<Measure> measures;
 
-	
-	
+	@OneToMany(mappedBy = "food", cascade = CascadeType.ALL)
+	private ArrayList<MealDetail> mealDetails;
+
 	public Food() {
 	}
 
+	public ArrayList<MealDetail> getMealDetails() {
+		return mealDetails;
+	}
 
+	public void setMealDetails(ArrayList<MealDetail> mealDetails) {
+		this.mealDetails = mealDetails;
+	}
 
 	public Integer getNdbno() {
 		return ndbno;
 	}
 
-
-
 	public String getName() {
 		return name;
 	}
-
-
 
 	public ArrayList<Nutrient> getNutrients() {
 		return nutrients;
 	}
 
-
-
 	public ArrayList<Measure> getMeasures() {
 		return measures;
 	}
-
-
 
 	public void setNdbno(Integer ndbno) {
 		this.ndbno = ndbno;
 	}
 
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
 
 	public void setNutrients(ArrayList<Nutrient> nutrients) {
 		this.nutrients = nutrients;
 	}
 
-
-
 	public void setMeasures(ArrayList<Measure> measures) {
 		this.measures = measures;
 	}
 
-
-
 	@Override
 	public String toString() {
-		//return "Food [ndbno=" + ndbno + ", name=" + name + ", measures="+measures.size()+", nutrients="+nutrients.size()+"]";
-		return "Food [ndbno=" + ndbno + ", name=" + name +"]";
+		// return "Food [ndbno=" + ndbno + ", name=" + name + ",
+		// measures="+measures.size()+", nutrients="+nutrients.size()+"]";
+		return "Food [ndbno=" + ndbno + ", name=" + name + "]";
 	}
-	
-	
-	
-	
-	
+
 }

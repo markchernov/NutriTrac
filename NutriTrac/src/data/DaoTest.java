@@ -1,68 +1,81 @@
 package data;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
 import java.util.ArrayList;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import entities.Food;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"/rest-servlet.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations="test-servlet.xml")
 
-public class DaoTest {
+public class DaoTest {                         //  Integration testing for DAO JPQL methods
 	
 	@Autowired
 	private NutriTracRESTDAO NutDAO;
 
-	/*
-	 * EntityManagerFactory emf =
-	 * Persistence.createEntityManagerFactory("NutriPU"); EntityManager em =
-	 * emf.createEntityManager();
-	 */
-
-	/*
-	 * @Autowired private NutriTracRESTDAO NutDAO;
-	 */
-
 	@Test
-	public void testDao() {
-//		NutriTracRESTDAO nutDAO = new NutriTracRESTDAO(); // ARRANGE
+	   public void testAdd() {
+	      String str= "Junit is working fine";
+	      assertEquals("Junit is working fine",str);
+	}
+	
+	
+	@Test
+	public void testgetFoodById() {
 
-		System.out.println(" My NUtDAO print out    " + NutDAO);
 
-		/*Food myFood = nutDAO.getFoodById(1225);
+		System.out.println(" My NutDAO print out    " + NutDAO);
 
-		assertNotNull(myFood); // ACT // ASSERT
+		Food myFood = NutDAO.getFoodById(1225);  // ARRANGE  ACT
 
-		assertEquals(nutDAO.getFoodById(1225).getNdbno(), 1225);*/
+		assertNotNull(myFood); // ASSERT
+		
+		System.out.println(" My Food print out    " + myFood);
+		
+		int myInt = new Integer(NutDAO.getFoodById(1225).getNdbno());
 
+		assertEquals(myInt, 1225);   // ASSERT
+
+		
+	}
+		
+	@Test
+	public void getAllFoods() {
+		
 		ArrayList<Food> myFoods = NutDAO.getAllFoods();
 		assertNotNull(myFoods);
 
-		/*
-		 * ArrayList<Food> tenFoods = nutDao.getTenHighestEnergyCounts();
-		 * ArrayList<Food> expectedFoods = new ArrayList();
-		 * assertNotNull(tenFoods);
-		 * 
-		 * Food myLeche= nutDao.getFoodById(1225); Food myIceCream=
-		 * nutDao.getFoodById(19095);
-		 * 
-		 * expectedFoods.add(myLeche); expectedFoods.add(myIceCream);
-		 */
-
-		/*
-		 * Food[] arrayActual; Food[] arrayExpected;
-		 * 
-		 * arrayExpected[0] = myLeche; arrayExpected[1] = myIceCream;
-		 */
-
-		// assertArrayEquals(expectedFoods.toArray() ,tenFoods.toArray());
-
+		
+		
 	}
+		
+	/*@Test
+	public void getTenHighestEnergyCounts() {
+		
+		 ArrayList<Food> tenFoods = NutDAO.getTenHighestEnergyCounts();
+		 ArrayList<Food> expectedFoods = new ArrayList<Food>();
+		 assertNotNull(tenFoods);
+		  
+		 Food myLeche = NutDAO.getFoodById(1225); 
+		 Food myIceCream = NutDAO.getFoodById(19095);
+		 
+		 expectedFoods.add(myLeche); 
+		 expectedFoods.add(myIceCream);
+		 
+
+		
+
+		  assertArrayEquals(expectedFoods.toArray(),tenFoods.toArray());
+
+	}*/
+
+
+
+	
 
 }

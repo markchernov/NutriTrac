@@ -143,7 +143,7 @@ public class NutriController {
 	
 	// ----DELETE ----
 	
-	@RequestMapping(path = "deletefood", method = RequestMethod.PUT)
+	@RequestMapping(path = "deletefood", method = RequestMethod.DELETE)
 
 	public Food deleteFood(@RequestBody Food food) {
 
