@@ -8,21 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import entities.Food;
+import entities.Meal;
 import entities.Measure;
 import entities.Nutrient;
+import entities.User;
+import entities.UserMeal;
 
 @Transactional
 
 public class NutriTracRESTDAO {
 
 	@PersistenceContext
-    //@Autowired
+	// @Autowired
 	private EntityManager em;
 
 	// ------------ FOOD ----------------------------------------------------
 	// ----GET-----
 
-	public Food getFoodById(int ndbnoParameter) {             
+	public Food getFoodById(int ndbnoParameter) {
 
 		Food food = em.find(Food.class, ndbnoParameter);
 		System.out.print(food);
@@ -34,10 +37,19 @@ public class NutriTracRESTDAO {
 
 		String name = nameParameter.trim();
 
-		ArrayList<Food> getAllFoodsByName =  new ArrayList<Food>(em.createNamedQuery("Food.getAllFoodsByName")
-				.setParameter("name", name).getResultList());
+		ArrayList<Food> getAllFoodsByName = new ArrayList<Food>(
+				em.createNamedQuery("Food.getAllFoodsByName").setParameter("name", name).getResultList());
 
 		return getAllFoodsByName;
+
+	}
+
+	public ArrayList<Food> getAllFoodsByChar(String character) {
+
+		ArrayList<Food> getAllFoodsByChar = new ArrayList<Food>(em.createNamedQuery("Food.getAllFoodsByChar")
+				.setParameter("character", "%" + character + "%").getResultList());
+
+		return getAllFoodsByChar;
 
 	}
 
@@ -51,21 +63,24 @@ public class NutriTracRESTDAO {
 
 	public ArrayList<Food> getAllFoodsWithNutrientName(String nutrientName) {
 
-		ArrayList<Food> allFoodsByNutrientName = new ArrayList<Food>(em.createNamedQuery("Food.getAllFoodsWithNutrientName").setParameter("nutrient", nutrientName).getResultList());
+		ArrayList<Food> allFoodsByNutrientName = new ArrayList<Food>(
+				em.createNamedQuery("Food.getAllFoodsWithNutrientName").setParameter("nutrient", nutrientName)
+						.getResultList());
 
 		return allFoodsByNutrientName;
 
 	}
-	
+
 	public ArrayList<Food> getTenHighestEnergyCounts() {
 
-		ArrayList<Food> tenHighestEnergyCounts = new ArrayList<Food>(em.createNamedQuery("Food.getTenHighestEnergyCounts").setMaxResults(10).setParameter("energy", "energy").getResultList());
+		ArrayList<Food> tenHighestEnergyCounts = new ArrayList<Food>(
+				em.createNamedQuery("Food.getTenHighestEnergyCounts").setMaxResults(10).setParameter("energy", "energy")
+						.getResultList());
 
 		return tenHighestEnergyCounts;
 
 	}
-	
-	
+
 	// ----POST-----
 
 	public Food createFood(Food f) {
@@ -114,8 +129,9 @@ public class NutriTracRESTDAO {
 
 	}
 
-	// --------------------------------- NUTRIENT -----------------------------------------------------
-	
+	// --------------------------------- NUTRIENT
+	// -----------------------------------------------------
+
 	// ----GET-----
 
 	public Nutrient getNutrientById(int idParameter) {
@@ -127,29 +143,29 @@ public class NutriTracRESTDAO {
 	}
 
 	public ArrayList<Nutrient> getAllNutrientsByGroupId(int groupIdParameter) {
-		
-		ArrayList<Nutrient> allNutrientsByNutrientGroupId = new ArrayList<Nutrient>(em.createNamedQuery("Nutrient.getAllNutrientsByGroupId").setParameter("nutrientId", groupIdParameter)
-				.getResultList());
+
+		ArrayList<Nutrient> allNutrientsByNutrientGroupId = new ArrayList<Nutrient>(
+				em.createNamedQuery("Nutrient.getAllNutrientsByGroupId").setParameter("nutrientId", groupIdParameter)
+						.getResultList());
 
 		return allNutrientsByNutrientGroupId;
 
 	}
-	
-    public ArrayList<Nutrient> getAllNutrientsByNutrientName(String nameParameter) {
-		
-		ArrayList<Nutrient> allNutrientsByNutrientName = new ArrayList<Nutrient>(em.createNamedQuery("Nutrient.getAllNutrientsByName").setParameter("name", nameParameter)
-				.getResultList());
+
+	public ArrayList<Nutrient> getAllNutrientsByNutrientName(String nameParameter) {
+
+		ArrayList<Nutrient> allNutrientsByNutrientName = new ArrayList<Nutrient>(
+				em.createNamedQuery("Nutrient.getAllNutrientsByName").setParameter("name", nameParameter)
+						.getResultList());
 
 		return allNutrientsByNutrientName;
 
 	}
-	
-	
-	
+
 	public ArrayList<Nutrient> getAllNutrients() {
 
-		ArrayList<Nutrient> allNutrients = new ArrayList<Nutrient>(em.createNamedQuery("Nutrient.getAllNutrients")
-				.getResultList());
+		ArrayList<Nutrient> allNutrients = new ArrayList<Nutrient>(
+				em.createNamedQuery("Nutrient.getAllNutrients").getResultList());
 
 		return allNutrients;
 
@@ -161,7 +177,7 @@ public class NutriTracRESTDAO {
 
 	public Measure getMeasureById(int measureIdParameter) {
 
-		Measure myMeasure = em.find(Measure.class,measureIdParameter);
+		Measure myMeasure = em.find(Measure.class, measureIdParameter);
 
 		return myMeasure;
 
@@ -169,18 +185,18 @@ public class NutriTracRESTDAO {
 
 	public ArrayList<Measure> getAllMeasuresByLabel(String labelParameter) {
 
-		ArrayList<Measure> allMeasuresByLabel = new ArrayList<Measure>(em.createNamedQuery("Measure.getAllMeasuresByLabel").setParameter("label", labelParameter)
-				.getResultList());
+		ArrayList<Measure> allMeasuresByLabel = new ArrayList<Measure>(
+				em.createNamedQuery("Measure.getAllMeasuresByLabel").setParameter("label", labelParameter)
+						.getResultList());
 
 		return allMeasuresByLabel;
 
 	}
-	
-	
+
 	public ArrayList<Measure> getAllMeasures() {
 
-		ArrayList<Measure> allMeasures = new ArrayList<Measure>(em.createNamedQuery("Measure.getAllMeasures")
-				.getResultList());
+		ArrayList<Measure> allMeasures = new ArrayList<Measure>(
+				em.createNamedQuery("Measure.getAllMeasures").getResultList());
 
 		return allMeasures;
 
@@ -189,4 +205,102 @@ public class NutriTracRESTDAO {
 	// ----POST-----
 	// ----PUT-----
 	// ----DELETE-----
-}
+
+	// ------------------------------------ USER
+
+	// ----GET-----
+
+	public User getUserByEmail(String email) {
+
+		User myUser = em.find(User.class, email);
+
+		return myUser;
+
+	}
+
+	public User getUserLoginByEmailAndPassword(String email, String password) {
+
+		User myUser = em.find(User.class, email);
+
+		if (myUser == null) {
+
+			return null;
+
+		}
+
+		else if
+
+		(myUser.getPassword() != password) {
+
+			return null;
+
+		}
+
+		else {
+
+			return myUser;
+
+		}
+	}
+
+	// ----POST-----
+
+	public User createUser(User u) {
+
+		User us = em.find(User.class, u.getEmail());
+
+		if (us == null) {
+
+			em.merge(u);
+
+			em.persist(u);
+			User persistedUser = em.find(User.class, u.getEmail());
+
+			return persistedUser;
+
+		}
+
+		else
+			return null;
+
+	}
+
+	// ------------------------------------ USER MEAL
+
+	// ----GET-----
+
+	public UserMeal getUserMealById(int id) {
+
+		UserMeal myUserMeal = em.find(UserMeal.class, id);
+
+		return myUserMeal;
+
+	}
+
+	// ------------ MEAL----------------------------------------------------
+	// ----GET-----
+
+	public ArrayList<Meal> getAllMealsByChar(String character) {
+
+		ArrayList<Meal> getAllMealsByChar = new ArrayList<Meal>(em.createNamedQuery("Meal.getAllMealsByChar")
+				.setParameter("character", "%" + character + "%").getResultList());
+
+		return getAllMealsByChar;
+
+	}
+
+	// ----POST-----
+
+	public Meal createMeal(Meal m) {
+
+		em.merge(m);
+
+		em.persist(m);
+
+		Meal persistedMeal = (Meal) em.createNamedQuery("Meal.getLastMealById").getSingleResult();
+
+		return persistedMeal;
+
+	}
+
+}// end of DAO

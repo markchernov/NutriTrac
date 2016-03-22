@@ -23,7 +23,8 @@ import javax.persistence.Table;
 		@NamedQuery(name = "Meal.getMealsByCategory", query = "select m from Meal m where m.name = :name"),
 		@NamedQuery(name = "Meal.getLastMealById", query = "select m from Meal m where m.mealId = (SELECT MAX(m2.mealId)from Meal m2)"),
 		@NamedQuery(name = "Meal.getAllMeals", query = "select e from Meal e"),
-		@NamedQuery(name = "Meal.getAllCategories", query = "select distinct m.name from Meal m") })
+		@NamedQuery(name = "Meal.getAllCategories", query = "select distinct m.name from Meal m"),
+		@NamedQuery(name = "Meal.getAllMealsByChar", query = "select m from Meal m where m.name LIKE :character")})
 
 public class Meal {
 
