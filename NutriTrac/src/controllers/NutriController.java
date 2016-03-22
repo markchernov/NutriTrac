@@ -1,6 +1,8 @@
 package controllers;
 
 import java.util.ArrayList;
+
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +16,7 @@ import entities.Food;
 import entities.Measure;
 import entities.Nutrient;
 import entities.User;
+import entities.UserMeal;
 
 @RestController
 // @SessionAttributes("loginCred")
@@ -70,6 +73,26 @@ public class NutriController {
 		return allFoodsByName;
 	}
 
+	@RequestMapping(path = "foods/{char}", method = RequestMethod.GET)
+
+	public ArrayList<Food> getAllFoodsByChar(@PathVariable("char") String character) {
+
+		//char firstChar = character.charAt(0);
+		
+		String firstChar = character.substring(0, 1);
+		String firstCharUpper = firstChar.toUpperCase();
+		
+		String theRest = character.substring(1);
+		String theRestLower = theRest.toLowerCase();
+		
+		ArrayList<Food> allFoodsByChar = NutDAO.getAllFoodsByChar(firstCharUpper+theRestLower);
+
+		return allFoodsByChar;
+	}
+	
+	
+	
+	
 	@RequestMapping(path = "foodswithnutrient/{nutrientname}", method = RequestMethod.GET)
 
 	public ArrayList<Food> getAllFoodsWithNutrientName(@PathVariable("nutrientname") String nutrientname) {
@@ -198,14 +221,53 @@ public class NutriController {
 
 		return myUser;
 	}
+	
+	// ----POST ----
+	
 
-	@RequestMapping(path = "user/{email}", method = RequestMethod.GET)
+	@RequestMapping(path = "login", method = RequestMethod.POST)
 
-	public User getUserLoginByEmailAndPassword(@PathVariable("email") String email, String password) {
+	public User getUserLoginByEmailAndPassword(@RequestBody User user) {
+		
+		String email = user.getEmail();
+		String password = user.getPassword();
 
 		User myUser = NutDAO.getUserLoginByEmailAndPassword(email, password);
 
 		return myUser;
 	}
 
+	@RequestMapping(path = "createuser", method = RequestMethod.POST)
+
+	public User createUser(@RequestBody User user) {
+		
+		User createdUser = NutDAO.createUser(user);
+
+		return createdUser;
+	}
+	
+	// --------------- USER MEAL ----------------------------------
+
+		// ----GET ----
+	
+	@RequestMapping(path = "usermealbyid/{usermealid}", method = RequestMethod.GET)
+
+	public UserMeal getUserMealById(@PathVariable("usermealid") int usermealid) {
+
+		UserMeal myUserMeal = NutDAO.getUserMealById(usermealid);
+
+		return myUserMeal;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 } // end of controller

@@ -11,6 +11,7 @@ import entities.Food;
 import entities.Measure;
 import entities.Nutrient;
 import entities.User;
+import entities.UserMeal;
 
 @Transactional
 
@@ -42,6 +43,21 @@ public class NutriTracRESTDAO {
 
 	}
 
+	public ArrayList<Food> getAllFoodsByChar(String character) {
+
+
+		ArrayList<Food> getAllFoodsByChar = new ArrayList<Food>(
+				em.createNamedQuery("Food.getAllFoodsByChar").setParameter("character", character + "%").getResultList());
+
+		return getAllFoodsByChar;
+
+	}
+	
+	
+	
+	
+	
+	
 	public ArrayList<Food> getAllFoods() {
 
 		ArrayList<Food> allFoods = new ArrayList<Food>(em.createNamedQuery("Food.getAllFoods").getResultList());
@@ -254,4 +270,16 @@ public class NutriTracRESTDAO {
 
 	}
 
-}
+	// ------------------------------------ USER MEAL
+
+		// ----GET-----
+	
+	public UserMeal getUserMealById(int id) {
+
+		UserMeal myUserMeal = em.find(UserMeal.class, id);
+
+		return myUserMeal;
+
+	}
+	
+}// end of DAO

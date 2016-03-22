@@ -2,13 +2,18 @@ package data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
+
 import java.util.ArrayList;
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import entities.Food;
+import entities.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="test-servlet.xml")
@@ -45,16 +50,26 @@ public class DaoTest {                         //  Integration testing for DAO J
 	}
 		
 	@Test
-	public void getAllFoods() {
+	public void testGetAllFoodsByChar() {
 		
-		ArrayList<Food> myFoods = NutDAO.getAllFoods();
+		ArrayList<Food> myFoods = NutDAO.getAllFoodsByChar("Cabb");
+		
+		
+		for (Food food : myFoods) {
+			
+		
+		System.out.println(food);
+		
+		
+		}
+		
 		assertNotNull(myFoods);
-
+		assertNotNull(myFoods.get(0).getName());
 		
 		
 	}
 		
-	/*@Test
+	@Test
 	public void getTenHighestEnergyCounts() {
 		
 		 ArrayList<Food> tenFoods = NutDAO.getTenHighestEnergyCounts();
@@ -70,12 +85,46 @@ public class DaoTest {                         //  Integration testing for DAO J
 
 		
 
-		  assertArrayEquals(expectedFoods.toArray(),tenFoods.toArray());
+		  //assertArrayEquals(expectedFoods.toArray(),tenFoods.toArray());
 
+	}
+
+
+
+	/*@Test
+	public void testCreateUser() {
+	
+		User testUser = new User();
+		testUser.setEmail("user@gmail.com");
+		testUser.setPassword("12345");
+		testUser.setFirstname("Maya");
+		testUser.setLastname("M");
+		testUser.setBirthdate(new Date());
+		testUser.setSex("F");
+	
+		
+		
+		User createdUser = NutDAO.createUser(testUser);
+		
+		assertNotNull(createdUser); // ASSERT
+		
+		assertEquals(createdUser.getEmail(), "user@gmail.com");   // ASSERT
+		
+		
+		
+		
+		User loggedInUser = NutDAO.getUserLoginByEmailAndPassword("user@gmail.com", "12345");  // ARRANGE  ACT
+
+		assertNotNull(loggedInUser); // ASSERT
+		
+		System.out.println(" My loggedInUser print out    " + loggedInUser);
+		
+		
+
+		assertEquals(loggedInUser.getPassword(), "12345");   // ASSERT
+
+		
 	}*/
-
-
-
 	
 
 }
