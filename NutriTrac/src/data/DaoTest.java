@@ -79,40 +79,41 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 
 	}
 
-	/*
-	 * @Test public void testCreateUser() {
-	 * 
-	 * User testUser = new User(); testUser.setEmail("user@gmail.com");
-	 * testUser.setPassword("12345"); testUser.setFirstname("Maya");
-	 * testUser.setLastname("M"); testUser.setBirthdate(new Date());
-	 * testUser.setSex("F");
-	 * 
-	 * 
-	 * 
-	 * User createdUser = NutDAO.createUser(testUser);
-	 * 
-	 * assertNotNull(createdUser); // ASSERT
-	 * 
-	 * assertEquals(createdUser.getEmail(), "user@gmail.com"); // ASSERT
-	 * 
-	 * 
-	 * 
-	 * 
-	 * User loggedInUser =
-	 * NutDAO.getUserLoginByEmailAndPassword("user@gmail.com", "12345"); //
-	 * ARRANGE ACT
-	 * 
-	 * assertNotNull(loggedInUser); // ASSERT
-	 * 
-	 * System.out.println(" My loggedInUser print out    " + loggedInUser);
-	 * 
-	 * 
-	 * 
-	 * assertEquals(loggedInUser.getPassword(), "12345"); // ASSERT
-	 * 
-	 * 
-	 * }
-	 */
+	
+	 @Test public void testCreateUser() {
+	 
+	 User testUser = new User(); testUser.setEmail("user@gmail.com");
+	 testUser.setPassword("12345"); testUser.setFirstname("Maya");
+	 testUser.setLastname("M"); testUser.setBirthdate(new Date());
+	 testUser.setSex("F");
+	 testUser.setWeight(150);
+	 testUser.setHeight(200);
+	 testUser.setActive(1);
+	  
+	  
+	 User createdUser = NutDAO.createUser(testUser);
+	 
+	 assertNotNull(createdUser); // ASSERT
+	  
+	 assertEquals(createdUser.getEmail(), "user@gmail.com"); // ASSERT
+	  
+	  
+	 
+	  
+	 User loggedInUser =
+	 NutDAO.getUserLoginByEmailAndPassword("user@gmail.com", "12345"); //ARRANGE ACT
+	 
+	 assertNotNull(loggedInUser); // ASSERT
+	 
+	 System.out.println(" My loggedInUser print out    " + loggedInUser);
+	  
+	  
+	  
+	  assertEquals(loggedInUser.getPassword(), "12345"); // ASSERT
+	  
+	 
+	 }
+	 
 
 	@Test
 	public void testCreateMeal() {

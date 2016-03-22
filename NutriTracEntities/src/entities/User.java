@@ -32,6 +32,12 @@ public class User {
 	private String password;
 
 	private String sex;
+	
+	private Integer height;
+	
+	private Integer weight;
+	
+	private Integer active;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private ArrayList<UserMeal> userMeals;
@@ -67,6 +73,33 @@ public class User {
 		return userMeals;
 	}
 
+	
+	
+	
+	public Integer getHeight() {
+		return height;
+	}
+
+	public Integer getWeight() {
+		return weight;
+	}
+
+	public Integer getActive() {
+		return active;
+	}
+
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
+
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
+
+	public void setActive(Integer active) {
+		this.active = active;
+	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -98,8 +131,11 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", firstname=" + firstname + ", lastname=" + lastname + ", birthdate="
-				+ birthdate + ", password=" + password + ", sex=" + sex + ", userMeals=" + userMeals + "]";
-	};
+				+ birthdate + ", password=" + password + ", sex=" + sex + ", height=" + height + ", weight=" + weight
+				+ ", active=" + active + ", userMeals=" + userMeals + "]";
+	}
+
+	
 
 	
 }
