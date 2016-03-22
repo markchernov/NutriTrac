@@ -13,6 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import entities.Food;
 import entities.Meal;
+import entities.MealDetail;
+import entities.Measure;
 import entities.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -119,7 +121,30 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 	public void testCreateMeal() {
 
 		Meal testMeal = new Meal();
+		
+		MealDetail testMealDetail = new MealDetail();
+		
+		
+		
+		testMealDetail.setMeal(testMeal);
+		
+		Food myFood = NutDAO.getFoodById(1225);
+		
+		testMealDetail.setMeasure(NutDAO.getMeasureById(13446));
+		
+		testMealDetail.setFood(myFood);
+		
+		
+		
 		testMeal.setName("breakfast burrito");
+		
+		ArrayList<MealDetail> mealDetails = new ArrayList<>();
+		mealDetails.add(testMealDetail);
+		
+		
+		
+		
+		testMeal.setMealDetails(mealDetails);
 
 		Meal createdMeal = NutDAO.createMeal(testMeal);
 
@@ -129,6 +154,7 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 
 		System.out.println("This is my meal:  " + createdMeal.getName());
 		System.out.println("This is my meal:  " + createdMeal.getMealId());
+		System.out.println("This is my meal details:  " + createdMeal.getMealDetails());
 	}
 
 }

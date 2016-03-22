@@ -74,7 +74,7 @@ public class NutriController {
 		return allFoodsByName;
 	}
 
-	@RequestMapping(path = "foods/{char}", method = RequestMethod.GET)
+	@RequestMapping(path = "foodsbychar/{char}", method = RequestMethod.GET)
 
 	public ArrayList<Food> getAllFoodsByChar(@PathVariable("char") String character) {
 
