@@ -1,7 +1,10 @@
-onload = function () {
-    console.log('IN HERE DUDES');
-    init();
-};
+var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+
+// FOR IN BROWSER
+// onload = function () {
+//     console.log('IN HERE DUDES');
+//     init();
+// };
 
 var scrapeTimer = {
     start: function () {
@@ -13,24 +16,28 @@ var scrapeTimer = {
     }
 };
 
+//var ndbno = 1115;
 var ndbno = 1001;
+//var ndbno = 36633;
 
 var place = 0;
 
-var apiKeys = ['luHpcYzCW0AElRtcgcBmVrWyfRqYQQobhJuycS70', '1fC1hY2ocZ1FrXMxEqZIUT2jX1wQ0id3h4Ud53Ym', '6doxBgv8PZAL6ZVJF4mlKD961oip7MOFjztQOvT8', 'cU3mRKA1kuypq3WNSTf00lCzqt0vDwrRcNGapLD2', 'Jpn8M076GP6mcmyyb3C5mcrXrgICarW3SnlLRTcr','1nfZZhhVYQSw0fgc5XGxdxvb2GQ1oKClMMIvkb1t', 'pDsuPH3xUxfu0ES2DWZucsqrrinbgTxkPTnMonPa', 'CgdyH7DvLfs684FTowzbkzycKAokV78m0UUgrDl5']
+var apiKeys = [apkey1, apkey2, apkey3, apkey4, apkey5, apkey6, apkey7, apkey8];
 
 
 function init() {
+  // setTimer();
     var btn1 = document.getElementById('btn1');
     document.getElementById('btn2').addEventListener('click', ping);
     btn1.addEventListener('click', getFood);
     document.getElementById('btn3').addEventListener('click', setTimer);
-};
+}
 
 var setTimer = function (event) {
-    event.preventDefault();
+    //FOR In-Browser Version
+    //event.preventDefault();
     scrapeTimer.start();
-}
+};
 
 var getUSDA = function() {
     
@@ -50,15 +57,16 @@ var getUSDA = function() {
     
     xhrMethod('GET', displayResponse, url1 + ndbno + url2, apiKey );
     ndbno ++;
-    if(ndbno > 36633) {
+    if(ndbno > 44260) {
         scrapeTimer.clear();
     }
-}
+};
 
+//FOR In-Browser Version
 var getFood = function (event) {
     event.preventDefault();
     console.log("button clicked ok guys");
-    xhrMethod('GET', displayResponse, 'http://api.nal.usda.gov/ndb/reports/?ndbno=19098&type=b&format=JSON&api_key=', 'luHpcYzCW0AElRtcgcBmVrWyfRqYQQobhJuycS70');
+    xhrMethod('GET', displayResponse, 'http://api.nal.usda.gov/ndb/reports/?ndbno=19098&type=b&format=JSON&api_key=', **APIKEY**);
 };
 
 var xhrMethod = function (method, callback, url, apiKey, obj) {
@@ -74,30 +82,30 @@ var xhrMethod = function (method, callback, url, apiKey, obj) {
         xhr.open(method, url);
     }
     xhr.onreadystatechange = function () {
-        console.log('state changing like a transformer');
-
-        if (xhr.readyState === 4 && xhr.status < 400) {
-            console.log('we have a response');
-            if (apiKey) {
-                var foodObj = JSON.parse(xhr.responseText);
-                callback(foodObj);
-            } else if (obj) {
-                var responseString = xhr.responseText;
-                callback(responseString);
+        if (xhr.readyState === 4) {
+            if(xhr.status < 400) {
+                console.log('we have a response');
+                if (apiKey) {
+                    var foodObj = JSON.parse(xhr.responseText);
+                    callback(foodObj);
+                } else if (obj) {
+                    var responseString = xhr.responseText;
+                    callback(responseString);
+                } else {
+                    var responseString = xhr.responseText;
+                    callback(responseString);
+                }
             } else {
-                var responseString = xhr.responseText;
-                callback(responseString);
+                console.log(xhr.status);
             }
-        } else {
-            console.log(xhr.status);
-        }
-    }
+        }    
+    };
     if (obj) {
         xhr.send(JSON.stringify(obj));
     } else {
         xhr.send();
     }
-}
+};
 
 var displayResponse = function (foodObj) {
     console.log(foodObj);
@@ -106,8 +114,10 @@ var displayResponse = function (foodObj) {
     for (var i = 0; i < foodObj.report.food.nutrients.length; i++) {
         var measureArr = [];
         for (var j = 0; j < foodObj.report.food.nutrients[i].measures.length; j++) {
-            var meas = new measure(foodObj.report.food.nutrients[i].measures[j].eqv, foodObj.report.food.nutrients[i].measures[j].label, foodObj.report.food.nutrients[i].measures[j].qty, foodObj.report.food.nutrients[i].measures[j].value, foodObj.report.food.nutrients[i].nutrient_id, foodObj.report.food.ndbno);
-            measureArr.push(meas);
+            if(foodObj.report.food.nutrients[i].measures[j]){    
+                var meas = new measure(foodObj.report.food.nutrients[i].measures[j].eqv, foodObj.report.food.nutrients[i].measures[j].label, foodObj.report.food.nutrients[i].measures[j].qty, foodObj.report.food.nutrients[i].measures[j].value, foodObj.report.food.nutrients[i].nutrient_id, foodObj.report.food.ndbno);
+                measureArr.push(meas);
+            }
         }
         var nut = new nutrient(foodObj.report.food.nutrients[i].group, foodObj.report.food.nutrients[i].name, foodObj.report.food.nutrients[i].nutrient_id, foodObj.report.food.nutrients[i].unit, foodObj.report.food.nutrients[i].value, measureArr, foodObj.report.food.ndbno);
         nutrients.push(nut);
@@ -148,11 +158,15 @@ var ping = function (event) {
     //    xhrMethod('GET', displayPing, 'http://52.89.185.185:8080/NutriTrac/rest/ping');
     xhrMethod('GET', displayPing, 'http://localhost:8080/NutriTrac/rest/ping');
 
-}
+};
 
 var displayPing = function (response) {
-    var div1 = document.getElementById('displayJson');
-    var head = document.createElement('h1');
-    div1.appendChild(head);
-    head.innerHTML = response;
-}
+    //FOR In-Browser Version
+    // var div1 = document.getElementById('displayJson');
+    // var head = document.createElement('h1');
+    // div1.appendChild(head);
+    // head.innerHTML = response;
+};
+
+console.log('JS LOADED - Init Next');
+init();
