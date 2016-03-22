@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -260,10 +261,57 @@ public class NutriController {
 		return myUserMeal;
 	}
 	
+	@RequestMapping(path = "latestusermeal", method = RequestMethod.GET)
+
+	public UserMeal getLatestUserMealById() {
+
+		UserMeal latestUserMealById = NutDAO.getLatestUserMealById();
+
+		return latestUserMealById;
+	}
+	
+	@RequestMapping(path = "usermealbycategory/{category}", method = RequestMethod.GET)
+
+	public ArrayList<UserMeal> getUserMealsByCategory(@PathVariable("category") String category) {
+
+		ArrayList<UserMeal> userMealsByCategory = NutDAO.getUserMealsByCategory(category);
+
+		return userMealsByCategory;
+	}
+	
+	@RequestMapping(path = "allusermeals/", method = RequestMethod.GET)
+
+	public ArrayList<UserMeal> getAllUserMeals() {
+
+		ArrayList<UserMeal> allUserMeals = NutDAO.getAllUserMeals();
+
+		return allUserMeals;
+	}
 	
 	
 	
 	
+	
+	
+	// --- POST ----
+	
+	@RequestMapping(path = "usermealsbyuser", method = RequestMethod.POST)
+
+	public ArrayList <UserMeal> getAllUserMealsByUser(@RequestBody User user) {
+		
+		ArrayList <UserMeal> allUserMealsByUser = NutDAO.getAllUserMealsByUser(user);
+
+		return allUserMealsByUser;
+	}
+	
+	@RequestMapping(path = "usermealsbydate", method = RequestMethod.POST)
+
+	public ArrayList <UserMeal> getAllMealsByDate(@RequestBody Date date) {
+		
+		ArrayList <UserMeal> allMealsByDate = NutDAO.getAllMealsByDate(date);
+
+		return allMealsByDate;
+	}
 	
 	
 	// --------------- MEAL ----------------------------------
