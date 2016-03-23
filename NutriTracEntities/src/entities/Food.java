@@ -37,19 +37,19 @@ public class Food {
 	@JoinColumn(name = "ndbno_id", referencedColumnName = "ndbno")
 	private ArrayList<Measure> measures;
 
-	@OneToMany(mappedBy = "food", cascade = CascadeType.ALL)
+	/*@OneToMany(mappedBy = "food", cascade = CascadeType.ALL)
 	private ArrayList<MealDetail> mealDetails;
-
+*/
 	public Food() {
 	}
 
-	public ArrayList<MealDetail> getMealDetails() {
+	/*public ArrayList<MealDetail> getMealDetails() {
 		return mealDetails;
 	}
 
 	public void setMealDetails(ArrayList<MealDetail> mealDetails) {
 		this.mealDetails = mealDetails;
-	}
+	}*/
 
 	public Integer getNdbno() {
 		return ndbno;

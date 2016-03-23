@@ -16,6 +16,8 @@ import entities.Meal;
 import entities.MealDetail;
 import entities.Measure;
 import entities.User;
+import entities.UserMeal;
+import entities.UserMeal.Type;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "test-servlet.xml")
@@ -51,7 +53,7 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 	@Test
 	public void testGetAllFoodsByChar() {
 
-		ArrayList<Food> myFoods = NutDAO.getAllFoodsByChar("burger");
+		ArrayList<Food> myFoods = NutDAO.getAllFoodsByChar("jelly");
 
 		for (Food food : myFoods) {
 
@@ -82,10 +84,10 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 	}
 
 	
-	 @Test public void testCreateUser() {
+	 /*@Test public void testCreateUser() {
 	 
-	 User testUser = new User(); testUser.setEmail("user@gmail.com");
-	 testUser.setPassword("12345"); testUser.setFirstname("Maya");
+	 User testUser = new User(); testUser.setEmail("yy@gmail.com");
+	 testUser.setPassword("12345"); testUser.setFirstname("YY");
 	 testUser.setLastname("M"); testUser.setBirthdate(new Date());
 	 testUser.setSex("F");
 	 testUser.setWeight(150);
@@ -97,7 +99,7 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 	 
 	 assertNotNull(createdUser); // ASSERT
 	  
-	 assertEquals(createdUser.getEmail(), "user@gmail.com"); // ASSERT
+	 assertEquals(createdUser.getEmail(), "ss@gmail.com"); // ASSERT
 	  
 	  
 	 
@@ -114,47 +116,62 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 	  assertEquals(loggedInUser.getPassword(), "12345"); // ASSERT
 	  
 	 
-	 }
+	 }*/
 	 
 
-	@Test
-	public void testCreateMeal() {
-
-		Meal testMeal = new Meal();
-		
-		MealDetail testMealDetail = new MealDetail();
-		
-		
-		
-		testMealDetail.setMeal(testMeal);
-		
-		Food myFood = NutDAO.getFoodById(1225);
-		
-		testMealDetail.setMeasure(NutDAO.getMeasureById(13446));
-		
-		testMealDetail.setFood(myFood);
-		
-		
-		
-		testMeal.setName("breakfast burrito");
-		
-		ArrayList<MealDetail> mealDetails = new ArrayList<>();
-		mealDetails.add(testMealDetail);
-		
-		
-		
-		
-		testMeal.setMealDetails(mealDetails);
-
-		Meal createdMeal = NutDAO.createMeal(testMeal);
-
-		assertNotNull(createdMeal); // ASSERT
-
-		assertEquals(createdMeal.getName(), "breakfast burrito"); // ASSERT
-
-		System.out.println("This is my meal:  " + createdMeal.getName());
-		System.out.println("This is my meal:  " + createdMeal.getMealId());
-		System.out.println("This is my meal details:  " + createdMeal.getMealDetails());
-	}
+//	@Test
+//	public void testCreateMeal() {
+//
+//		Meal testMeal = new Meal();
+//		
+//		MealDetail testMealDetail = new MealDetail();
+//		
+//		
+//		
+//		testMealDetail.setMeal(testMeal);
+//		
+//		Food myFood = NutDAO.getFoodById(1225);
+//		
+//		testMealDetail.setMeasure(NutDAO.getMeasureById(13446));
+//		
+//		testMealDetail.setFood(myFood);
+//		
+//		
+//		
+//		testMeal.setName("breakfast burrito");
+//		
+//		ArrayList<MealDetail> mealDetails = new ArrayList<>();
+//		mealDetails.add(testMealDetail);
+//		
+//		
+//		
+//		
+//		testMeal.setMealDetails(mealDetails);
+//
+//		Meal createdMeal = NutDAO.createMeal(testMeal);
+//		
+//		User myUser = NutDAO.getUserByEmail("user@gmail.com");
+//		
+//		UserMeal myUserMeal = new UserMeal();
+//		myUserMeal.setMeal(createdMeal);
+//		myUserMeal.setMealDate(new Date());
+//		myUserMeal.setUser(myUser);
+//		myUserMeal.setMealCategory(Type.BREAKFAST);
+//		
+//		UserMeal createdUserMeal = NutDAO.createUserMeal(myUserMeal);
+//		
+//		assertNotNull(createdUserMeal); // ASSERT
+//		assertEquals(createdUserMeal.getUser().getEmail(), "user@gmail.com"); // ASSERT
+//		
+//		assertNotNull(createdMeal); // ASSERT
+//
+//		assertEquals(createdMeal.getName(), "breakfast burrito"); // ASSERT
+//
+//		System.out.println("This is my meal:  " + createdMeal.getName());
+//		System.out.println("This is my meal:  " + createdMeal.getMealId());
+//		System.out.println("This is my meal details:  " + createdMeal.getMealDetails());
+//		System.out.println("This is my UserMeal Date :  " + createdUserMeal.getMealDate());
+//		System.out.println("This is my meal details:  " + createdUserMeal.getUser());
+//	}
 
 }

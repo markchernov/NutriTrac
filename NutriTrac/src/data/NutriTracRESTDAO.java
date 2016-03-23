@@ -1,6 +1,8 @@
 package data;
 
 import java.util.ArrayList;
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -230,7 +232,7 @@ public class NutriTracRESTDAO {
 
 		else if
 
-		(myUser.getPassword() != password) {
+		(!myUser.getPassword().equals(password) ) {
 
 			return null;
 
@@ -276,7 +278,71 @@ public class NutriTracRESTDAO {
 		return myUserMeal;
 
 	}
+	
+	public UserMeal getLatestUserMealById() {
 
+		UserMeal userMeal = (UserMeal) em.createNamedQuery("UserMeal.getLatestUserMealById").getSingleResult();
+				
+
+		return userMeal;
+
+	}
+	
+	
+	
+	
+	public ArrayList<UserMeal> getUserMealsByCategory(String mealCategory) {
+
+		ArrayList<UserMeal> getUserMealsByCategory = new ArrayList<UserMeal>(em.createNamedQuery("UserMeal.getUserMealsByCategory")
+				.setParameter("mealCategory", mealCategory).getResultList());
+
+		return getUserMealsByCategory;
+
+	}
+	
+	public ArrayList<UserMeal> getAllUserMeals() {
+
+		ArrayList<UserMeal> getAllUserMeals = new ArrayList<UserMeal>(em.createNamedQuery("UserMeal.getAllUserMeals").getResultList());
+
+		return getAllUserMeals;
+
+	}
+	
+	public ArrayList<UserMeal> getAllUserMealsByUser(User user) {
+
+		ArrayList<UserMeal> getAllUserMealsByUser = new ArrayList<UserMeal>(em.createNamedQuery("UserMeal.getAllUserMealsByUser")
+				.setParameter("user", user).getResultList());
+
+		return getAllUserMealsByUser;
+
+	}
+	
+	public ArrayList<UserMeal> getAllMealsByDate(Date date) {
+
+		ArrayList<UserMeal> getAllMealsByDate = new ArrayList<UserMeal>(em.createNamedQuery("UserMeal.getAllMealsByDate")
+				.setParameter("mealDate", date).getResultList());
+
+		return getAllMealsByDate;
+
+	}
+	
+	
+	
+	// --------- POST -------
+	
+	public UserMeal createUserMeal(UserMeal um) {
+
+		em.merge(um);
+
+		em.persist(um);
+
+		UserMeal persistedUserMeal = (UserMeal) em.createNamedQuery("UserMeal.getLastUserMealById").getSingleResult();
+
+		return persistedUserMeal;
+
+	}
+	
+	
 	// ------------ MEAL----------------------------------------------------
 	// ----GET-----
 
