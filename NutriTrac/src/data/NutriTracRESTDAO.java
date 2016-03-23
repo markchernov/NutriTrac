@@ -220,28 +220,16 @@ public class NutriTracRESTDAO {
 
 	}
 
-	public User getUserLoginByEmailAndPassword(String email, String password) {
+	public User getUserLoginByEmailAndPassword(User jsonUser) {
 
-		User myUser = em.find(User.class, email);
+		User myUser = em.find(User.class, jsonUser.getEmail());
 
 		if (myUser == null) {
-
 			return null;
-
-		}
-
-		else if
-
-		(!myUser.getPassword().equals(password) ) {
-
+		} else if (!myUser.getPassword().equals(jsonUser.getPassword()) ) {
 			return null;
-
-		}
-
-		else {
-
+		} else {
 			return myUser;
-
 		}
 	}
 

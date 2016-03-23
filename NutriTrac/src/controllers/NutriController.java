@@ -228,13 +228,8 @@ public class NutriController {
 	
 
 	@RequestMapping(path = "login", method = RequestMethod.POST)
-
-	public User getUserLoginByEmailAndPassword(@RequestBody User user) {
-		
-		String email = user.getEmail();
-		String password = user.getPassword();
-
-		User myUser = NutDAO.getUserLoginByEmailAndPassword(email, password);
+	public User getUserLoginByEmailAndPassword(@RequestBody User jsonUser) {
+		User myUser = NutDAO.getUserLoginByEmailAndPassword(jsonUser);
 
 		return myUser;
 	}

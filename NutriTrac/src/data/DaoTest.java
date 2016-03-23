@@ -84,28 +84,28 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 	}
 
 	
-	 /*@Test public void testCreateUser() {
+	 @Test public void testCreateUser() {
 	 
-	 User testUser = new User(); testUser.setEmail("yy@gmail.com");
-	 testUser.setPassword("12345"); testUser.setFirstname("YY");
-	 testUser.setLastname("M"); testUser.setBirthdate(new Date());
-	 testUser.setSex("F");
-	 testUser.setWeight(150);
-	 testUser.setHeight(200);
-	 testUser.setActive(1);
+	 User testUser = new User(); testUser.setEmail("jeffrey.leupp@gmail.com");
+	 testUser.setPassword("rowcol"); testUser.setFirstname("Jeffrey");
+	 testUser.setLastname("Leupp"); testUser.setBirthdate(new Date(2016, 3, 29));
+	 testUser.setSex("M");
+	 testUser.setWeight(210);
+	 testUser.setHeight(183);
+	 testUser.setActive(3);
 	  
 	  
 	 User createdUser = NutDAO.createUser(testUser);
 	 
 	 assertNotNull(createdUser); // ASSERT
 	  
-	 assertEquals(createdUser.getEmail(), "ss@gmail.com"); // ASSERT
+	 assertEquals(createdUser.getEmail(), "jeffrey.leupp@gmail.com"); // ASSERT
 	  
 	  
 	 
 	  
 	 User loggedInUser =
-	 NutDAO.getUserLoginByEmailAndPassword("user@gmail.com", "12345"); //ARRANGE ACT
+	 NutDAO.getUserLoginByEmailAndPassword(testUser); //ARRANGE ACT
 	 
 	 assertNotNull(loggedInUser); // ASSERT
 	 
@@ -113,10 +113,10 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 	  
 	  
 	  
-	  assertEquals(loggedInUser.getPassword(), "12345"); // ASSERT
+	  assertEquals(loggedInUser.getPassword(), "rowcol"); // ASSERT
 	  
 	 
-	 }*/
+	 }
 	 
 
 //	@Test
