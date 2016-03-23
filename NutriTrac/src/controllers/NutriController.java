@@ -40,7 +40,7 @@ public class NutriController {
 
 	// ----TEST
 	@ResponseBody
-	@RequestMapping(path = "ping")
+	@RequestMapping(path = "ping", method = RequestMethod.POST)
 	public String ping() {
 		return "PONG";
 	}
@@ -78,7 +78,7 @@ public class NutriController {
 	@RequestMapping(path = "foodsbychar/{char}", method = RequestMethod.GET)
 
 	public ArrayList<Food> getAllFoodsByChar(@PathVariable("char") String character) {
-
+		System.out.println(character);
 		//char firstChar = character.charAt(0);
 		
 		String firstChar = character.substring(0, 1);
@@ -225,12 +225,19 @@ public class NutriController {
 	}
 	
 	// ----POST ----
-	
-
+//	@ResponseBody
+//	@RequestMapping(path = "ping", method = RequestMethod.POST)
+//	public String ping() {
+//		return "PONG";
+//	}
+	@ResponseBody
 	@RequestMapping(path = "login", method = RequestMethod.POST)
 	public User getUserLoginByEmailAndPassword(@RequestBody User jsonUser) {
-		User myUser = NutDAO.getUserLoginByEmailAndPassword(jsonUser);
-
+//		System.out.println("IN LOGIN METHOD");
+		System.out.println(jsonUser);
+		 User myUser = NutDAO.getUserLoginByEmailAndPassword(jsonUser);
+//		User myUser = new User();
+//		myUser.setEmail("JEEEF");
 		return myUser;
 	}
 
