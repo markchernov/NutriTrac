@@ -3,9 +3,10 @@ package data;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +84,7 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 
 	}
 
-	
+	 @Ignore
 	 @Test public void testCreateUser() {
 	 
 	 User testUser = new User(); testUser.setEmail("jeffrey.leupp@gmail.com");
@@ -174,4 +175,34 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 //		System.out.println("This is my meal details:  " + createdUserMeal.getUser());
 //	}
 
+	 
+	    @Test
+		public void testCreateUserMeal() {
+	
+			UserMeal testUserMeal = new UserMeal();
+			
+			
+			ArrayList <Meal> myMeal = NutDAO.getAllMealsByChar("burrito");
+			
+			testUserMeal.setMeal(myMeal.get(0));
+			
+			MealDetail testMealDetail = new MealDetail();
+			
+			
+			testUserMeal.setMealDate(new Date(2016, 12, 15));
+			
+			User myUser = NutDAO.getUserByEmail("jeffrey.leupp@gmail.com");
+			
+			testUserMeal.setUser(myUser);
+			
+			testUserMeal.setMealCategory(Type.LUNCH);
+			
+	        UserMeal persistedUserMeal = NutDAO.createUserMeal(testUserMeal);
+	        
+	        assertNotNull(persistedUserMeal); // ASSERT
+	        
+	        System.out.println("This is my UserMeal:   " + persistedUserMeal.getId() + persistedUserMeal.getMealDate()+ 
+	        		persistedUserMeal.getMealCategory() + persistedUserMeal.getUser() );
+	        		
+}
 }
