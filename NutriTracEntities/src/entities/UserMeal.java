@@ -1,9 +1,12 @@
 package entities;
 
-import java.util.Date;
+
+
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,7 +41,7 @@ public class UserMeal {
 	@Column(name = "meal_category")
 	private Type mealCategory;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_email", referencedColumnName = "email")
 	private User user;
 
@@ -93,4 +96,11 @@ public class UserMeal {
 		this.meal = meal;
 	}
 
+	/*@Override
+	public String toString() {
+		return "UserMeal [id=" + id + ", mealDate=" + mealDate + ", +  user=" + user +"]";
+	}
+*/
+	
+	
 }
