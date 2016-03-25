@@ -337,7 +337,12 @@ public class NutriController {
 	
 	@RequestMapping(path = "createmeal", method = RequestMethod.POST)
     public Meal createMeal(@RequestBody Meal meal) {
-		
+		for (UserMeal um : meal.getUserMeals()) {
+			um.setUser(NutDAO.getUserByEmail(um.getUser().getEmail()));
+		}
+		System.out.println("INSIDE CREATEMEAL");
+		System.out.println(meal.getUserMeals().isEmpty());
+		System.out.println(meal.getMealDetails().isEmpty());
 		Meal createdMeal = NutDAO.createMeal(meal);
 
 		return createdMeal;

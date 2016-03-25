@@ -1,13 +1,19 @@
 package client;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import entities.Food;
+import entities.Meal;
+import entities.MealDetail;
 import entities.Measure;
 import entities.Nutrient;
+import entities.User;
+import entities.UserMeal;
+import entities.UserMeal.Type;
 
 public class TestEntities {
 
@@ -15,7 +21,7 @@ public class TestEntities {
 	static EntityManager em = emf.createEntityManager();
 
 	public static void main(String[] args) {
-		
+		testCreateUserMeal();
 		//EntityTransaction et = em.getTransaction();
 		//et.begin();
 		
@@ -23,51 +29,80 @@ public class TestEntities {
 
 		
 		
-		System.out.println(getFoodById(1225));
+//		System.out.println(getFoodById(1225));
 
-		ArrayList<Food> myFoods = getAllFoods();
-
-		for (Food food : myFoods) {
-			System.out.println("My foods:  "+ food);
-			
-		}
-
-		ArrayList<Nutrient> myNutrients = getAllNutrients();
-
-		for (Nutrient n : myNutrients) {
-			System.out.println("My nutrients:  " + n);
-			
-		}
-
-		ArrayList<Measure> myMeasures = getAllMeasures();
-
-		for (Measure m : myMeasures) {
-			System.out.println("My measures:  " + m);
-			
-		}
-
-		ArrayList<Food> myFoodsByNutrient = getAllFoodsByNuttrient("Water");
-
-		for (Food food : myFoodsByNutrient) {
-			System.out.println(food  + "  with Water");
-			
-		}
-		
-		
-		Food f = new Food();
-		f.setNdbno(4339);
-		f.setName("My taco");
-		
-		
-		//System.out.println(deleteFood(f));
-		
-		System.out.println(updateFood(f));
+//		ArrayList<Food> myFoods = getAllFoods();
+//
+//		for (Food food : myFoods) {
+//			System.out.println("My foods:  "+ food);
+//			
+//		}
+//
+//		ArrayList<Nutrient> myNutrients = getAllNutrients();
+//
+//		for (Nutrient n : myNutrients) {
+//			System.out.println("My nutrients:  " + n);
+//			
+//		}
+//
+//		ArrayList<Measure> myMeasures = getAllMeasures();
+//
+//		for (Measure m : myMeasures) {
+//			System.out.println("My measures:  " + m);
+//			
+//		}
+//
+//		ArrayList<Food> myFoodsByNutrient = getAllFoodsByNuttrient("Water");
+//
+//		for (Food food : myFoodsByNutrient) {
+//			System.out.println(food  + "  with Water");
+//			
+//		}
+//		
+//		
+//		Food f = new Food();
+//		f.setNdbno(4339);
+//		f.setName("My taco");
+//		
+//		
+//		//System.out.println(deleteFood(f));
+//		
+//		System.out.println(updateFood(f));
 
 		
 		//et.commit();
 	} // end of main
 
 	// ---------------------------- METHODS TO BE TESTED
+	
+	public static void testCreateUserMeal() {
+    	EntityTransaction et = em.getTransaction();
+    	et.begin();
+		Meal json = new Meal();
+    	json.setName("Babyfood, cereal, oatmeal, with applesauce and bananas, junior");
+    	UserMeal um = new UserMeal();
+    	um.setMealDate(new Date(2016, 2, 24));
+    	um.setMealCategory(Type.LUNCH);
+    	um.setUser(em.find(User.class, "jeffrey.leupp@gmail.com"));
+    	um.setMeal(json);
+    	
+    	System.out.println(um + " " + um.getUser());
+    	json.addUserMeal(um);
+    	MealDetail md = new MealDetail();
+    	md.setMeal(json);
+    	md.setFood(em.find(Food.class,3192));
+    	md.setMeasure(em.find(Food.class, 3192).getNutrients().get(0).getMeasures().get(1));
+    	json.addMealDetail(md);
+    	em.merge(json);
+    	et.commit();
+    	
+    	//TESTING PERSIST CASCADE FROM MEAL TO MEAL DETAIL AND USER MEAL
+//    	assertNotNull(persistedMeal);
+//    	
+//    	assertEquals(persistedMeal.getName(), json.getName());
+    	
+    	
+    }
 
 	public static ArrayList<Food> getAllFoods() {
 

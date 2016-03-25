@@ -1,7 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -31,21 +30,21 @@ public class Meal {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int mealId;
+	private Integer mealId;
 
 	@Column(name = "name")
 	private String name;
 
 	@OneToMany(mappedBy = "meal", cascade = CascadeType.ALL)
-	private ArrayList<UserMeal> userMeals;
+	private List<UserMeal> userMeals = new ArrayList<UserMeal>();
 
 	@OneToMany(mappedBy = "meal", cascade = CascadeType.ALL)
-	private ArrayList<MealDetail> mealDetails;
+	private List<MealDetail> mealDetails = new ArrayList<MealDetail>();
 
 	public Meal() {
 	}
 
-	public int getMealId() {
+	public Integer getMealId() {
 		return mealId;
 	}
 
@@ -53,15 +52,15 @@ public class Meal {
 		return name;
 	}
 
-	public ArrayList<UserMeal> getUserMeals() {
+	public List<UserMeal> getUserMeals() {
 		return userMeals;
 	}
 
-	public ArrayList<MealDetail> getMealDetails() {
+	public List<MealDetail> getMealDetails() {
 		return mealDetails;
 	}
 
-	public void setMealId(int mealId) {
+	public void setMealId(Integer mealId) {
 		this.mealId = mealId;
 	}
 
@@ -71,6 +70,18 @@ public class Meal {
 
 	public void setUserMeals(ArrayList<UserMeal> userMeals) {
 		this.userMeals = userMeals;
+	}
+	
+	public void addUserMeal(UserMeal um) {
+		if(userMeals.isEmpty()) {
+			System.out.println("empty");
+			userMeals.add(0, um);
+		}
+		this.userMeals.add(um);
+	}
+	
+	public void addMealDetail(MealDetail md) {
+		this.mealDetails.add(md);
 	}
 
 	public void setMealDetails(ArrayList<MealDetail> mealDetails) {

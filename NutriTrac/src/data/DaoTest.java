@@ -12,10 +12,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import entities.Food;
 import entities.Meal;
 import entities.MealDetail;
-import entities.Measure;
 import entities.User;
 import entities.UserMeal;
 import entities.UserMeal.Type;
@@ -84,41 +84,41 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 
 	}
 
-	
-//	 @Test public void testCreateUser() {
-//	 
-//	 User testUser = new User(); testUser.setEmail("jeffrey.leupp@gmail.com");
-//	 testUser.setPassword("rowcol"); testUser.setFirstname("Jeffrey");
-//	 testUser.setLastname("Leupp"); testUser.setBirthdate(new Date(2016, 3, 29));
-//	 testUser.setSex("M");
-//	 testUser.setWeight(210);
-//	 testUser.setHeight(183);
-//	 testUser.setActive(3);
-//	  
-//	  
-//	 User createdUser = NutDAO.createUser(testUser);
-//	 
-//	 assertNotNull(createdUser); // ASSERT
-//	  
-//	 assertEquals(createdUser.getEmail(), "jeffrey.leupp@gmail.com"); // ASSERT
-//	  
-//	  
-//	 
-//	  
-//	 User loggedInUser =
-//	 NutDAO.getUserLoginByEmailAndPassword(testUser); //ARRANGE ACT
-//	 
-//	 assertNotNull(loggedInUser); // ASSERT
-//	 
-//	 System.out.println(" My loggedInUser print out    " + loggedInUser);
-//	  
-//	  
-//	  
-//	  assertEquals(loggedInUser.getPassword(), "rowcol"); // ASSERT
-//	  
-//	 
-//	 }
-
+	@Ignore
+	 @Test public void testCreateUser() {
+	 
+	 User testUser = new User(); testUser.setEmail("jeffrey.leupp@gmail.com");
+	 testUser.setPassword("rowcol"); testUser.setFirstname("Jeffrey");
+	 testUser.setLastname("Leupp"); testUser.setBirthdate(new Date(2016, 3, 29));
+	 testUser.setSex("M");
+	 testUser.setWeight(210);
+	 testUser.setHeight(183);
+	 testUser.setActive(3);
+	  
+	  
+	 User createdUser = NutDAO.createUser(testUser);
+	 
+	 assertNotNull(createdUser); // ASSERT
+	  
+	 assertEquals(createdUser.getEmail(), "jeffrey.leupp@gmail.com"); // ASSERT
+	  
+	  
+	 
+	  
+	 User loggedInUser =
+	 NutDAO.getUserLoginByEmailAndPassword(testUser); //ARRANGE ACT
+	 
+	 assertNotNull(loggedInUser); // ASSERT
+	 
+	 System.out.println(" My loggedInUser print out    " + loggedInUser);
+	  
+	  
+	  
+	  assertEquals(loggedInUser.getPassword(), "rowcol"); // ASSERT
+	  
+	 
+	 }
+	@Ignore
 	@Test
 	public void testCreateMeal() {
 
@@ -128,11 +128,11 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 		
 		
 		
-//		testMealDetail.setMeal(testMeal);
+		testMealDetail.setMeal(testMeal);
 		
 		Food myFood = NutDAO.getFoodById(1225);
 		
-//		testMealDetail.setMeasure(NutDAO.getMeasureById(13446));
+		testMealDetail.setMeasure(NutDAO.getMeasureById(13446));
 		testMealDetail.setMeasure(myFood.getNutrients().get(0).getMeasures().get(0));
 		
 		testMealDetail.setFood(myFood);
@@ -151,58 +151,80 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 
 		Meal createdMeal = NutDAO.createMeal(testMeal);
 		
-//		User myUser = NutDAO.getUserByEmail("jeffrey.leupp@gmail.com");
-//		
-//		UserMeal myUserMeal = new UserMeal();
-//		myUserMeal.setMeal(createdMeal);
-//		myUserMeal.setMealDate(new Date());
-//		myUserMeal.setUser(myUser);
-//		myUserMeal.setMealCategory(Type.BREAKFAST);
-//		
-//		UserMeal createdUserMeal = NutDAO.createUserMeal(myUserMeal);
-//		
-//		assertNotNull(createdUserMeal); // ASSERT
-//		assertEquals(createdUserMeal.getUser().getEmail(), "user@gmail.com"); // ASSERT
-//		
-//		assertNotNull(createdMeal); // ASSERT
-//
-//		assertEquals(createdMeal.getName(), "breakfast burrito"); // ASSERT
-//
-//		System.out.println("This is my meal:  " + createdMeal.getName());
-//		System.out.println("This is my meal:  " + createdMeal.getMealId());
-//		System.out.println("This is my meal details:  " + createdMeal.getMealDetails());
-//		System.out.println("This is my UserMeal Date :  " + createdUserMeal.getMealDate());
-//		System.out.println("This is my meal details:  " + createdUserMeal.getUser());
+		User myUser = NutDAO.getUserByEmail("jeffrey.leupp@gmail.com");
+		
+		UserMeal myUserMeal = new UserMeal();
+		myUserMeal.setMeal(createdMeal);
+		myUserMeal.setMealDate(new Date(2015, 1, 24));
+		myUserMeal.setUser(myUser);
+		myUserMeal.setMealCategory(Type.BREAKFAST);
+		
+		UserMeal createdUserMeal = NutDAO.createUserMeal(myUserMeal);
+		
+		assertNotNull(createdUserMeal); // ASSERT
+		assertEquals(createdUserMeal.getUser().getEmail(), "user@gmail.com"); // ASSERT
+		
+		assertNotNull(createdMeal); // ASSERT
+
+		assertEquals(createdMeal.getName(), "breakfast burrito"); // ASSERT
+
+		System.out.println("This is my meal:  " + createdMeal.getName());
+		System.out.println("This is my meal:  " + createdMeal.getMealId());
+		System.out.println("This is my meal details:  " + createdMeal.getMealDetails());
+		System.out.println("This is my UserMeal Date :  " + createdUserMeal.getMealDate());
+		System.out.println("This is my meal details:  " + createdUserMeal.getUser());
 	}
 
 	 
 	    @Test
 		public void testCreateUserMeal() {
+	    	Meal json = new Meal();
+	    	json.setName("Babyfood, cereal, oatmeal, with applesauce and bananas, junior");
+	    	UserMeal um = new UserMeal();
+	    	um.setMealDate(new Date(2016, 2, 24));
+	    	um.setMealCategory(Type.LUNCH);
+	    	um.setUser(NutDAO.getUserByEmail("jeffrey.leupp@gmail.com"));
+	    	um.setMeal(json);
+	    	json.addUserMeal(um);
+	    	MealDetail md = new MealDetail();
+	    	md.setFood(NutDAO.getFoodById(3192));
+	    	md.setMeasure(NutDAO.getFoodById(3192).getNutrients().get(0).getMeasures().get(1));
+	    	md.setMeal(json);
+	    	json.addMealDetail(md);
+	    	Meal persistedMeal = NutDAO.createMeal(json);
+	    	
+	    	//TESTING PERSIST CASCADE FROM MEAL TO MEAL DETAIL AND USER MEAL
+	    	assertNotNull(persistedMeal);
+	    	
+	    	assertEquals(persistedMeal.getName(), json.getName());
+	    	
+	    	
+	    }
 	
-			UserMeal testUserMeal = new UserMeal();
-			
-			
-			ArrayList <Meal> myMeal = NutDAO.getAllMealsByChar("burrito");
-			
-			testUserMeal.setMeal(myMeal.get(0));
-			
-			MealDetail testMealDetail = new MealDetail();
-			
-			
-			testUserMeal.setMealDate(new Date(2016, 12, 15));
-			
-			User myUser = NutDAO.getUserByEmail("jeffrey.leupp@gmail.com");
-			
-			testUserMeal.setUser(myUser);
-			
-			testUserMeal.setMealCategory(Type.LUNCH);
-			
-	        UserMeal persistedUserMeal = NutDAO.createUserMeal(testUserMeal);
-	        
-	        assertNotNull(persistedUserMeal); // ASSERT
-	        
-	        System.out.println("This is my UserMeal:   " + persistedUserMeal.getId() + persistedUserMeal.getMealDate()+ 
-	        		persistedUserMeal.getMealCategory() + persistedUserMeal.getUser() );
-	        		
-}
+//			UserMeal testUserMeal = new UserMeal();
+//			
+//			
+//			ArrayList <Meal> myMeal = NutDAO.getAllMealsByChar("burrito");
+//			
+//			testUserMeal.setMeal(myMeal.get(0));
+//			
+//			MealDetail testMealDetail = new MealDetail();
+//			
+//			
+//			testUserMeal.setMealDate(new Date(2016, 12, 15));
+//			
+//			User myUser = NutDAO.getUserByEmail("jeffrey.leupp@gmail.com");
+//			
+//			testUserMeal.setUser(myUser);
+//			
+//			testUserMeal.setMealCategory(Type.LUNCH);
+//			
+//	        UserMeal persistedUserMeal = NutDAO.createUserMeal(testUserMeal);
+//	        
+//	        assertNotNull(persistedUserMeal); // ASSERT
+//	        
+//	        System.out.println("This is my UserMeal:   " + persistedUserMeal.getId() + persistedUserMeal.getMealDate()+ 
+//	        		persistedUserMeal.getMealCategory() + persistedUserMeal.getUser() );
+//	        		
+//}
 }
