@@ -7,9 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "meal_details")
@@ -27,8 +27,9 @@ public class MealDetail {
 	@JoinColumn(name ="food_id", referencedColumnName="ndbno")
 	private Food food; 
 	
+	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name ="meal_id", referencedColumnName="id")
+	@JoinColumn(name ="meal_id")//, referencedColumnName="id")
 	private Meal meal;
 	
 	@ManyToOne
@@ -57,9 +58,9 @@ public class MealDetail {
 		return measure;
 	}
 
-	public void setMealDetailId(Integer mealDetailId) {
-		this.mealDetailId = mealDetailId;
-	}
+//	public void setMealDetailId(Integer mealDetailId) {
+//		this.mealDetailId = mealDetailId;
+//	}
 
 
 	public void setFood(Food food) {
@@ -72,6 +73,13 @@ public class MealDetail {
 
 	public void setMeasure(Measure measure) {
 		this.measure = measure;
+	}
+
+
+	@Override
+	public String toString() {
+		return "MealDetail [mealDetailId=" + mealDetailId + ", food=" + food + ", meal=" //+ meal.getName() + ", measure=" + measure
+				+ "]";
 	}
 	
 	

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import data.NutriTracRESTDAO;
 import entities.Food;
 import entities.Meal;
+import entities.MealDetail;
 import entities.Measure;
 import entities.Nutrient;
 import entities.User;
@@ -337,13 +338,23 @@ public class NutriController {
 	
 	@RequestMapping(path = "createmeal", method = RequestMethod.POST)
     public Meal createMeal(@RequestBody Meal meal) {
-		for (UserMeal um : meal.getUserMeals()) {
-			um.setUser(NutDAO.getUserByEmail(um.getUser().getEmail()));
-		}
+		
+//		System.out.println(meal);
+//		for (int i = 0; i<meal.getUserMeals().size(); i++) {
+//			um.setUser(NutDAO.getUserByEmail(um.getUser().getEmail()));
+			meal.getUserMeals().get(0).setMeal(meal);
+//		meal.addUserMeal(meal.getUserMeals().get(0));
+//		}
+//		for (int i = 0; i<meal.getMealDetails().size(); i++) {
+			meal.getMealDetails().get(0).setMeal(meal);
+			meal.getUserMeals().get(0).getUser().addUserMeal(meal.getUserMeals().get(0));
+			System.out.println(meal);
+//		}
 		System.out.println("INSIDE CREATEMEAL");
 		System.out.println(meal.getUserMeals().isEmpty());
 		System.out.println(meal.getMealDetails().isEmpty());
 		Meal createdMeal = NutDAO.createMeal(meal);
+		System.out.println("AFTER PERSIST" + createdMeal.getMealId());
 
 		return createdMeal;
 	}

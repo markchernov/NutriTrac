@@ -347,9 +347,10 @@ public class NutriTracRESTDAO {
 
 	public Meal createMeal(Meal m) {
 
-		em.merge(m);
-
+		em.merge(m.getUserMeals().get(0).getUser());
+		System.out.println("BEFORE PERSIST" + m.getMealId());
 		em.persist(m);
+		
 
 		Meal persistedMeal = (Meal) em.createNamedQuery("Meal.getLastMealById").getSingleResult();
 

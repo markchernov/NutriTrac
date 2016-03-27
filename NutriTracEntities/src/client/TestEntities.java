@@ -78,7 +78,7 @@ public class TestEntities {
 	public static void testCreateUserMeal() {
     	EntityTransaction et = em.getTransaction();
     	et.begin();
-		Meal json = new Meal();
+		Meal json = new Meal(); 
     	json.setName("Babyfood, cereal, oatmeal, with applesauce and bananas, junior");
     	UserMeal um = new UserMeal();
     	um.setMealDate(new Date(2016, 2, 24));
