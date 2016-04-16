@@ -44,6 +44,12 @@ public class NutriController {
 	public String ping() {
 		return "PONG";
 	}
+	
+	@ResponseBody
+	@RequestMapping(path = "ping", method = RequestMethod.GET)
+	public String pingGet() {
+		return "PONG";
+	}
 
 	// --------------- FOOD ----------------------------------
 
