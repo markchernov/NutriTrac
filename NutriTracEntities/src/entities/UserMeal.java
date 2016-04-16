@@ -2,7 +2,7 @@ package entities;
 
 
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user_meal")
@@ -45,8 +47,9 @@ public class UserMeal {
 	@JoinColumn(name = "user_email", referencedColumnName = "email")
 	private User user;
 
+	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "meal_id", referencedColumnName = "id")
+	@JoinColumn(name = "meal_id") //, referencedColumnName = "id")
 	private Meal meal;
 
 	public UserMeal() {
@@ -96,11 +99,13 @@ public class UserMeal {
 		this.meal = meal;
 	}
 
-	/*@Override
+	@Override
 	public String toString() {
-		return "UserMeal [id=" + id + ", mealDate=" + mealDate + ", +  user=" + user +"]";
+		return "UserMeal [id=" + id + ", mealDate=" + mealDate + ", +  user=" + user.getEmail() +"]" + " " 
+				+ meal.getName();
+	
 	}
-*/
+
 	
 	
 }

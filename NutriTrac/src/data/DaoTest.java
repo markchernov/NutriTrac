@@ -84,12 +84,12 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 
 	}
 
-	@Ignore
+//	@Ignore
 	 @Test public void testCreateUser() {
 	 
 	 User testUser = new User(); testUser.setEmail("jeffrey.leupp@gmail.com");
 	 testUser.setPassword("rowcol"); testUser.setFirstname("Jeffrey");
-	 testUser.setLastname("Leupp"); testUser.setBirthdate(new Date(2016, 3, 29));
+	 testUser.setLastname("Leupp"); testUser.setBirthdate(new Date(83, 3, 29));
 	 testUser.setSex("M");
 	 testUser.setWeight(210);
 	 testUser.setHeight(183);
@@ -184,12 +184,16 @@ public class DaoTest { // Integration testing for DAO JPQL methods
 	    	um.setMealDate(new Date(2016, 2, 24));
 	    	um.setMealCategory(Type.LUNCH);
 	    	um.setUser(NutDAO.getUserByEmail("jeffrey.leupp@gmail.com"));
+	    	
 	    	um.setMeal(json);
+	    	
 	    	json.addUserMeal(um);
 	    	MealDetail md = new MealDetail();
 	    	md.setFood(NutDAO.getFoodById(3192));
 	    	md.setMeasure(NutDAO.getFoodById(3192).getNutrients().get(0).getMeasures().get(1));
+	    	
 	    	md.setMeal(json);
+	    	
 	    	json.addMealDetail(md);
 	    	Meal persistedMeal = NutDAO.createMeal(json);
 	    	

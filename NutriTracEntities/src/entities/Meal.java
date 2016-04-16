@@ -88,6 +88,12 @@ public class Meal {
 		this.mealDetails = mealDetails;
 	}
 
+	@Override
+	public String toString() {
+		return "Meal [mealId=" + mealId + ", name=" + name + ", userMeals=" + userMeals + ", mealDetails=" + mealDetails
+				+ "]";
+	}
+
 	
 	
 }
